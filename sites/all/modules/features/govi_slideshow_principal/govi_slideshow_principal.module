@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Feature main slideshow feature.
+ */
+
+include_once 'govi_slideshow_principal.features.inc';

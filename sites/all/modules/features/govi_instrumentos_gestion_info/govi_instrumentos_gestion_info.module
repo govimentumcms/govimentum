@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Instrumentos de gestión de la información pública feature.
+ */
+
+include_once 'govi_instrumentos_gestion_info.features.inc';

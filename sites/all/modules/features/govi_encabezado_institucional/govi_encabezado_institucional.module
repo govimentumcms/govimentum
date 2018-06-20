@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Code for the Feature institutional header feature.
+ */
+
+include_once 'govi_encabezado_institucional.features.inc';
+
+function govi_encabezado_institucional_menu() {
+    $items = array();
+
+    $items['admin/config/features'] = array(
+        'title' => 'Características funcionales de la Distribución',
+        'page callback' => 'system_admin_menu_block_page',
+        'access arguments' => array('access administration pages'),
+        'file' => 'system.admin.inc',
+        'file path' => drupal_get_path('module', 'system'),
+        'position' => 'left',
+        'weight' => -20,
+    );
+
+    $items['admin/config/features/institutional_header'] = array(
+        'title' => 'Header Institucional',
+        'description' => 'Configuración de los elementos del Header Institucional',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('govi_encabezado_institucional_admin_config_main'),
+        'access arguments' => array('access administration pages'),
+        'file' => 'includes/govi_encabezado_institucional.admin.inc'
+    );
+
+    $items['admin/config/features/site_register'] = array(
+        'title' => 'Registrar sitio',
+        'description' => 'Formulario de registro sitio web institucional',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('govi_registrar_sitio'),
+        'access arguments' => array('access administration pages'),
+        'file' => 'includes/govi_registrar_sitio.admin.inc'
+    );
+
+    return $items;
+}

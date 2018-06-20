@@ -1,0 +1,18 @@
+name = Profile Pure CSS
+description = Tema custom perfil de instalación de Govimentum basado en Pure CSS.
+package = Core
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = assets/css/base.css
+stylesheets[all][] = assets/css/grids.css
+stylesheets[all][] = assets/css/pure-grillas-responsivas.css
+stylesheets[all][] = assets/css/pure-botones.css
+stylesheets[all][] = assets/css/formularios.css
+stylesheets[all][] = assets/css/layout.css
+stylesheets[all][] = assets/css/styles.css
+
+regions[top] = Top
+regions[slide] = Slide
+regions[content] = Content
+regions[bottom] = Bottom

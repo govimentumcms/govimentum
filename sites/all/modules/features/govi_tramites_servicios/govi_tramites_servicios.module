@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Trámites y Servicios feature.
+ */
+
+include_once 'govi_tramites_servicios.features.inc';

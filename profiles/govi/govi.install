@@ -1,0 +1,1046 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the standard installation profile.
+ */
+
+function govi_install_tasks() {
+
+    drupal_get_messages('status', TRUE);
+
+    $tasks = array ();
+
+    $current_task = variable_get('install_task', 'done');
+
+    $tasks['govi_institutional_header_form'] = array (
+        'display_name' => 'Recupera información institucional',
+        'type' => 'form',
+    );
+
+    if (variable_get('enable_es')) {
+        $tasks['govi_install_import_locales'] = array(
+            'display_name' => 'Instalando lenguaje',
+            'type' => 'batch',
+            'display' => TRUE,
+            'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED
+        );
+    }
+
+    $tasks['govi_install_aditional_modules'] = array(
+        'display_name' => strpos($current_task, 'govi_') !== FALSE,
+        'type' => 'batch',
+        'display' => TRUE,
+    );
+
+    $tasks['govi_install_institutional_features'] = array(
+        'display_name' => strpos($current_task, 'govi_') !== FALSE,
+        'type' => 'batch',
+        'display' => TRUE,
+    );
+
+    return $tasks;
+}
+
+function govi_install_import_locales(&$install_state) {
+
+    locale_add_language('es', 'Spanish', 'Español', LANGUAGE_LTR, '', '', TRUE, TRUE);
+
+    // Collect files to import for this language.
+    $batch = locale_batch_by_language('es');
+
+    if (!empty($batch)) {
+        // Remember components we cover in this batch set.
+        variable_set('install_locale_batch_components', $batch['#components']);
+        return $batch;
+    }
+}
+
+function govi_install_tasks_alter(&$tasks, $install_state){
+
+    $tasks['install_finished']['function'] = 'govi_install_finished';
+    $tasks['install_select_profile']['display'] = FALSE;
+    $tasks['install_select_locale']['display'] = FALSE;
+    $tasks['install_select_locale']['run'] = INSTALL_TASK_SKIP;
+    $tasks['install_profile_modules']['display_name'] = st('Instalar Govimentum CMS, Instrumento de gobierrno');
+
+    $new_task['install_welcome'] = array(
+        'display' => TRUE,
+        'display_name' => 'Bienvenid@',
+        'type' => 'form',
+        'run' => isset($install_state['parameters']['welcome']) ? INSTALL_TASK_SKIP : INSTALL_TASK_RUN_IF_REACHED,
+    );
+
+    $old_tasks = $tasks;
+    $tasks = array_slice($old_tasks, 0, 2) + $new_task + array_slice($old_tasks, 2);
+    //$tasks = array_splice($old_tasks, 2, 0, $new_task);
+
+    $profile_theme = 'govi_tema_perfil';
+    // habilita el tema del perfil de instalación
+    govi_set_theme($profile_theme);
+}
+
+/**
+ * Forza o habilita el thema a cualquier punto durante la ejecución del request.
+ *
+ * Drupal no provee la opción de habilitar el tema durante el proceso de
+ * instalación y fuerza habilitar el tema de mantenimiento antes del request
+ * por nosotros para modificarlo en una manera limpia.
+ *
+ * fuente: Perfil de instalación distribución commerce_kickstart
+ *
+ */
+function govi_set_theme($target_theme) {
+  if ($GLOBALS['theme'] != $target_theme) {
+    unset($GLOBALS['theme']);
+
+    drupal_static_reset();
+    $GLOBALS['conf']['maintenance_theme'] = $target_theme;
+    drupal_maintenance_theme();
+  }
+}
+
+function install_welcome($form, &$form_state, &$install_state) {
+    drupal_set_title('Bienvenido a Govimentum: Instrumento de Gobierno');
+
+    $message = '<p>Gracias por elegir la Distribución Distrital CMS Govimentum. <br/> Este es un proyecto de software libre desarrollado de manera colaborativa por las entidades del distrito y para las entidades del distrito, el cual provee un instrumento de gobierno para la gestion de contenidos digitales institucionales. Govimentum incorpora los lineamientos de Gobierno en Línea, Ley de Transparencia, Guia de sitios web 3.0, accesibilidad web y de servicio al ciudadano, para brindar a la ciudadanía un escenario incluyente de información y de participación y de gobierno electrónico en la web</p>';
+
+    $form = array();
+
+    $form['welcome_message'] = array(
+        '#markup' => $message,
+    );
+
+    $form['actions'] = array(
+        '#type' => 'actions'
+    );
+
+   $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Comencemos!',
+    '#weight' => 10,
+  );
+
+   return $form;
+}
+
+function install_welcome_submit($form, &$form_state) {
+  global $install_state;
+
+  $install_state['parameters']['welcome'] = 'done';
+  $install_state['parameters']['locale'] = 'es';
+}
+
+function govi_install_aditional_modules() {
+
+    global $install_state;
+
+    $modules = array (
+        'locale',
+        'libraries',
+        'ctools',
+        'views',
+        'views_ui',
+        'views_slideshow',
+        'views_fieldsets',
+        'views_responsive_grid',
+        'calendar',
+		'date',
+        'token',
+        'menu_token',
+        'link',
+        'variable',
+        'entity',
+        'entity_token',
+        'entityreference',
+        'features',
+        'jcarousel',
+        'defaultcontent',
+        'field_slideshow',
+        'menu_attributes',
+        'uuid',
+        'context',
+        'context_ui',
+        'field_validation',
+        'field_validation_ui',
+        'field_group',
+        'conditional_fields',
+        'colorbox',
+        'colorbox_node',
+        'wsclient',
+        'wsclient_soap',
+        'wsclient_rest',
+        'wsclient_ui',
+        'http_client',
+        'rules',
+        'rules_scheduler',
+        'rules_admin',
+        'path_breadcrumbs',
+        'path_breadcrumbs_ui',
+        'pathauto',
+        'color_field',
+        'maxlength',
+        'print',
+        'print_ui',
+        'print_mail',
+        'cami',
+        'captcha',	
+        'recaptcha',
+        'smtp',
+        'site_map',
+        'youtube',
+        'webform',
+		'security_review',
+		'ckeditor',
+		'imce',
+        'webform_features',
+    );
+
+    $files = system_rebuild_module_data();
+
+    $modules_sorted = array();
+
+    foreach ($modules as $module) {
+        if($files[$module]->requires) {
+            $dependencies = array_keys($files[$module]->requires);
+            $dependencies = array_filter($dependencies, '_filter_dependencies');
+            $modules = array_merge($modules, $dependencies);
+        }
+    }
+
+    $modules = array_unique($modules);
+
+    foreach ($modules as $module) {
+        $modules_sorted[$module] = $files[$module]->sort;
+    }
+
+    arsort($modules_sorted);
+
+    $theme = 'govi_tema';
+
+    $operations = array();
+
+    $operations[] = array('_enable_theme', array($theme));
+
+    foreach ($modules_sorted as $module => $weight) {
+        $operations[] = array('_enable_module', array($module, $files[$module]->info['name']));
+    }
+
+    $operations[] = array('_configure_pathauto', array());
+
+    $operations[] = array('_configure_print', array());
+
+    $operations[] = array('_configure_smtp', array());
+
+    $operations[] = array('_configure_site_map', array());
+
+    $operations[] = array('_flush_caches', array('caches vaciadas'));
+
+    $batch = array(
+        'title' => 'Instalando dependencias adicionales',
+        'operations' => $operations,
+        'file' => drupal_get_path('profile', 'govi'). '/govi.install_callbacks.inc',
+    );
+
+    return $batch;
+}
+
+function _filter_dependencies($dependency) {
+    return !module_exists($dependency);
+}
+
+function govi_install_institutional_features() {
+
+    $terminos = array();
+
+    $terminos['footer'] = array(
+        'Alcaldia Mayor de Bogota',
+        'Entidades de Control',
+        'Vinculos de Interes',
+        'Gobierno en Linea',
+    );
+
+    $terminos['marco_legal_clasificacion'] = array(
+        'Normatividad',
+        'Lineamientos',
+        'Planes',
+    );
+
+    $terminos['marco_legal_normatividad'] = array(
+        'Tratados internacionales',
+        'Normas constitucionales',
+        'Leyes',
+        'Decretos',
+        'Jurisprudencia',
+        'Acuerdos distritales',
+        'Resoluciones',
+        'Directivas',
+    );
+
+    $terminos['marco_legal_lineamientos'] = array(
+        'Circulares',
+        'Conceptos',
+        'Actas',
+    );
+
+    $terminos['marco_legal_planes'] = array(
+        'Planes de desarrollo',
+        'Proyectos de inversión',
+    );
+
+    $terminos['planeacion_clasificacion'] = array(
+        'Informes de Empalme',
+        'Metas e indicadores',
+        'Participación Ciudadana',
+        'Planes',
+        'Programas y proyectos',
+    );
+
+    $terminos['planeacion_clasificacion_metas_indicadores'] = array(
+        'Auditorias Externas',
+        'Resultado de Indicadores',
+        'Seguimiento a la planeación',
+    );
+
+    $terminos['planeacion_clasificacion_planes'] = array(
+        'Políticas y lineamientos sectoriales',
+		'Manuales',
+		'Plan Estratégico',
+		'Plan de Acción',
+        'Plan de Rencición de Cuentas',
+        'Plan de Servicio al Ciudadano',
+		'Plan Anti Trámites',
+        'Plan Anticorrupción y Atención al Ciudadano',		
+		'Plan de gasto público',
+		);
+
+    $terminos['periodicidad'] = array(
+        'Cuatrienal',
+        'Anual',
+        'Semestral',
+        'Cuatrimestral',
+        'Trimestral',
+        'Bimensual',
+        'Mensual',
+        'Semanal',
+        'Diaria',
+    );
+
+    $terminos['contratacion_clasificacion'] = array(
+        'Plan anual de adquisiciones', 
+        'Manual de contratación', 
+        'Información contractual', 
+        'Ejecución de contratos',
+    );
+
+    $terminos['instrumentos_clasificacion'] = array(
+        'Relacionados con la información', 
+        'Gestión documental', 
+        'Informe de peticiones quejas reclamos denuncias y solicitudes de acceso a la información', 
+    );
+
+     $terminos['instrumentos_tipo_documento'] = array(
+        'Mecanismos para presentar quejas y reclamos', 
+        'Informe de peticiones, quejas, reclamos y denuncias', 
+        'Solicitudes de acceso a la información', 
+    );
+
+    $terminos['presupuesto_clasificacion'] = array(
+        'Ejecución presupuestal',
+        'Estados financieros',
+        'Presupuesto general',
+    );
+
+    $terminos['tramites_servicios_clasificacion'] = array(
+        'Servicios',
+        'Trámites',
+    );
+
+    $terminos['eventos_frecuencia'] = array(
+        'Diaria',
+        'Semanal',
+        'Mensual',
+        'Anual',
+    );
+
+    $terminos['directorio_de_funcionarios_dependencia_oficina'] = array(
+        'Secretaría General / Alta Consejería Distrital de TIC',
+    );
+
+    $terminos['control_clasificacion'] = array(
+        'Informes de gestión, evaluación y auditoria',
+        'Reportes de control interno',
+        'Planes de mejoramiento',
+        'Entes de control, vigilancia y mecanismos de supervición',
+        'Información para población vulnerable',
+        'Defensa judicial',
+    );
+
+    $terminos['control_tipo_de_informes_de_gestion'] = array(
+        'Informe de rendición de cuentas a los ciudadanos',
+        'Informe de rendición de la cuenta fiscal a la CGR o a los organismos de control territorial',
+        'Informe enviado al Congreso/Asamblea/Consejo',
+        'Informes a organismos de inspección, vigilancia y control',
+    );
+
+    $terminos['clasificacion_convocatoria'] = array(
+        'Cultural',
+        'Deportiva',
+        'Economica',
+        'Empleo',
+    );
+
+    $terminos['clasificacion_documentos'] = array(
+        'Estudios',
+        'Investigaciones',
+        'Otras publicaciones',
+        'Información Adicional',
+    );
+
+    $terminos['clasificacion_faqs'] = array(
+        'General',
+    );
+
+    $operations = array();
+
+    $operations[] = array('_institutional_header', array());
+
+    $operations[] = array('_informacion_institucional', array());
+
+    $operations[] = array('_directorio_funcionarios', array());
+
+    $operations[] = array('_main_slideshow', array());
+
+    $operations[] = array('_noticias', array());
+
+    $operations[] = array('_enlaces_destacados', array());
+
+    $operations[] = array('_periodicidad', array(array('periodicidad'), $terminos['periodicidad']));
+
+    $operations[] = array('_eventos', array());
+
+    $operations[] = array('_servicio_ciudadano', array());
+
+    $operations[] = array('_mecanismos_contacto', array(array('pie_de_pagina_institucional'), $terminos['footer']));
+
+    $operations[] = array('_marco_legal', array());
+
+    $operations[] = array('_marco_legal_clasificacion', array(array('marco_legal_clasificacion'), $terminos['marco_legal_clasificacion']));
+
+    $operations[] = array('_marco_legal_normatividad', array(array('marco_legal_normatividad'), $terminos['marco_legal_normatividad']));
+
+    $operations[] = array('_marco_legal_lineamientos', array(array('marco_legal_lineamientos'), $terminos['marco_legal_lineamientos']));
+
+    $operations[] = array('_marco_legal_planes', array(array('marco_legal_planes'), $terminos['marco_legal_planes']));
+
+    $operations[] = array('_planeacion', array());
+
+    $operations[] = array('_planeacion_clasificacion', array(array('planeacion_clasificacion'), $terminos['planeacion_clasificacion']));
+
+    $operations[] = array('_planeacion_clasificacion_metas_indicadores', array(array('planeacion_clasificacion_metas_indicadores'), $terminos['planeacion_clasificacion_metas_indicadores']));
+
+    $operations[] = array('_planeacion_clasificacion_planes', array(array('planeacion_clasificacion_planes'), $terminos['planeacion_clasificacion_planes']));
+
+    $operations[] = array('_contratacion', array());
+
+    $operations[] = array('_contratacion_clasificacion', array(array('contratacion_clasificacion'), $terminos['contratacion_clasificacion']));
+
+    $operations[] = array('_instrumentos_gestion_informacion', array());
+
+    $operations[] = array('_instrumentos_clasificacion', array(array('instrumentos_clasificacion'), $terminos['instrumentos_clasificacion']));
+
+    $operations[] = array('_instrumentos_tipo_documento', array(array('instrumentos_tipo_documento'), $terminos['instrumentos_tipo_documento']));
+
+    $operations[] = array('_presupuesto', array());
+
+    $operations[] = array('_presupuesto_clasificacion', array(array('presupuesto_clasificacion'), $terminos['presupuesto_clasificacion']));
+
+    $operations[] = array('_tramites_servicios', array());
+
+    $operations[] = array('_tramites_servicios_clasificacion', array(array('tramites_servicios_clasificacion'), $terminos['tramites_servicios_clasificacion']));
+
+    $operations[] = array('_transparencia', array());
+
+    $operations[] = array('_frecuencia_evento', array(array('eventos_frecuencia'), $terminos['eventos_frecuencia']));
+
+    $operations[] = array('_directorio_de_funcionarios_dependencia_oficina', array(array('directorio_de_funcionarios_dependencia_oficina'), $terminos['directorio_de_funcionarios_dependencia_oficina']));
+
+    $operations[] = array('_control', array());
+
+    $operations[] = array('_control_clasificacion', array(array('control_clasificacion'), $terminos['control_clasificacion']));
+
+    $operations[] = array('_control_tipo_de_informes_de_gestion', array(array('control_tipo_de_informes_de_gestion'), $terminos['control_tipo_de_informes_de_gestion']));
+   
+    $operations[] = array('_informacion_interes', array());
+
+    $operations[] = array('_clasificacion_convocatoria', array(array('clasificacion_convocatoria'), $terminos['clasificacion_convocatoria']));
+
+    $operations[] = array('_clasificacion_documentos', array(array('clasificacion_documentos'), $terminos['clasificacion_documentos']));
+
+    $operations[] = array('_clasificacion_faqs', array(array('clasificacion_faqs'), $terminos['clasificacion_faqs']));
+ 
+    if (variable_get('enable_content')) {
+        $operations[] = array('_default_content', array());
+    }
+
+    $operations[] = array('_form_notificacion_judicial', array());
+
+    $batch = array(
+        'title' => 'Instalando caracteristicas funcionales institucionales',
+        'operations' => $operations,
+        'file' => drupal_get_path('profile', 'govi'). '/govi_install.features_callbacks.inc',
+    );
+
+    return $batch;
+}
+
+function govi_institutional_header_form () {
+
+    $form = array();
+
+    $form['intro'] = array(
+        '#markup' => '<h3>Información del sitio web Institucional</h3>
+                      <p>Por favor complete los siguientes campos:',
+    );
+
+    $form['info_basica_entidad'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Información básica de la Entidad',
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+    );
+
+    $form['info_basica_entidad']['sector'] = array(
+        '#type' => 'select',
+        '#title' => 'Seleccione el sector',
+        '#options' => array(
+		    'Seleccionar' => 'Seleccionar',
+            'hacienda' => 'Secretaría de Hacienda',
+            'mujer' => 'Secretaría Distrital de la Mujer',
+            'integracion_social' => 'Secretaría de Integración Social',
+            'cultura' => 'Secretaría de Cultura',
+            'gobierno' => 'Secretaría de Gobierno',
+            'salud' => 'Secretaría de Salud',
+            'general' => 'Secretaría General',
+            'educacion' => 'Secretaría de Educación',
+            'planeacion' => 'Secretaría de Planeación',
+            'desarrollo_economico' => 'Secretaría de Desarrollo Económico',
+            'habitat' => 'Secretaría de Hábitat',
+            'bomberos' => 'Cuerpo Oficial de Bomberos',
+            'espacio_publico' => 'Departamento administrativo de la defensoria del espacio público',
+            'gestion_publica' => 'Sector Gestión Pública',
+            'gobierno' => 'Sector Gobierno',
+            'hacienda' => 'Sector Hacienda',
+            'planeacion' => 'Sector Planeación',
+            'desarrollo_economico' => 'Sector Desarrollo Económico, Industria y Turismo',
+            'educacion' => 'Sector Educación',
+            'salud' => 'Sector de Salud',
+            'integracion_social' => 'Sector Integración Social',
+            'cultura' => 'Sector Cultura, Recreación y Deporte',
+            'ambiente' => 'Sector Ambiente',
+            'movilidad' => 'Sector Movilidad',
+            'habitat' => 'Sector Hábitat',
+            'mujer' => 'Sector Mujeres',
+            'seguridad' => 'Sector Seguridad, Convivencia y Justicia',
+            'juridica' => 'Sector Gestión Juridica',
+            'control' => 'inspección, vigilancia y control'
+        ),
+        '#default_value' => 'Seleccionar',
+        '#description' => 'Seleccione el sector al que pertenece su entidad',
+        '#required' => TRUE
+    );
+
+    $form['info_basica_entidad']['nombre'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Nombre de la entidad',
+		  '#default_value' => variable_get('site_name', 'Drupal'),
+		   '#disabled' => TRUE,
+        '#required' => FALSE,
+        '#description' => 'Definir nombre de la Entidad hará que la presentación del encabezado institucional varíe para este tipo de implementación y se diferencie con respecto a la implementacion de un sitio Cabeza de Sector'
+    );
+
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => st('Continue'),
+    );
+
+    return $form;
+}
+
+function govi_institutional_header_form_submit ($form, &$form_state) {
+    // Nuevas variables persistentes
+    variable_set('header_sector', $form_state['complete form']['info_basica_entidad']['sector']['#options'][$form_state['values']['sector']]);
+    variable_set('header_entidad', $form_state['values']['nombre']);
+}
+
+function govi_install_finished(&$install_state) {
+    $messages = drupal_set_message();
+    variable_set('install_profile', drupal_get_profile());
+    variable_set('install_task', 'done');
+
+    drupal_flush_all_caches();
+
+    return theme('govi_finished', array($messages));
+}
+
+function govi_theme($existing, $type, $theme, $path) {
+
+    $path_to_theme = drupal_get_path('theme', 'govi_tema_perfil');
+
+    return array(
+        'govi_finished' => array(
+            'template' => 'install-finished',
+            'path' => $path_to_theme . '/templates',
+            'variables' => array(),
+        ),
+    );
+}
+
+// Agrega formatos de fecha personalizados
+function govi_date_format_types() {
+    return array(
+        'anho' => 'Año',
+        'hora' =>  'Hora',
+    );
+}
+
+function govi_date_formats() {
+    $formats = array();
+
+    $formats[] = array(
+        'type' => 'anho',
+        'format' => 'Y',
+        'locales' => array(),
+    );
+
+    $formats[] = array(
+        'type' => 'hora',
+        'format' => 'H:i',
+        'locales' => array(),
+    );
+
+    foreach ($formats as $format) {
+        variable_set('date_format_' . $format['type'], $format['format']);
+    };
+
+    return $formats;
+}
+
+function govi_install() {
+
+  // Add text formats.
+  $filtered_html_format = array(
+    'format' => 'filtered_html',
+    'name' => 'Filtered HTML',
+    'weight' => 0,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // HTML filter.
+      'filter_html' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 2,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $filtered_html_format = (object) $filtered_html_format;
+  filter_format_save($filtered_html_format);
+
+  $full_html_format = array(
+    'format' => 'full_html',
+    'name' => 'Full HTML',
+    'weight' => 1,
+    'filters' => array(
+      // URL filter.
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+      ),
+      // Line break filter.
+      'filter_autop' => array(
+        'weight' => 1,
+        'status' => 1,
+      ),
+      // HTML corrector filter.
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+      ),
+    ),
+  );
+  $full_html_format = (object) $full_html_format;
+  filter_format_save($full_html_format);
+
+  // Cambia el peso al módulo content
+      db_update('system')
+    ->fields(array('weight' => -1))
+    ->condition('name', 'content', '=')
+    ->execute();
+
+  // Define temas backend y frontend
+  $default_theme = 'govi_tema';
+  $admin_theme = 'seven';
+
+  // Define bloques instalación base
+  $blocks = array(
+    array(
+      'module' => 'system',
+      'delta' => 'main',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'title' => '',
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'main',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'title' => '',
+      'weight' => 0,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'help',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'title' => '',
+      'weight' => 0,
+      'region' => 'help',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'user',
+      'delta' => 'login',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'title' => '',
+      'weight' => 10,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'user',
+      'delta' => 'new',
+      'theme' => $admin_theme,
+      'status' => 1,
+      'title' => '',
+      'weight' => 0,
+      'region' => 'dashboard_sidebar',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+        'module' => 'menu',
+        'delta' => 'menu-transparencia-segundo-nivel',
+        'status' => 1,
+        'region' => -1,
+        'weight' => 0,
+        'title' => '<none>',
+        'theme' => $default_theme,
+        'pages' => '',
+        'cache' => -1
+    ),
+  );
+
+  // Habilita bloques backend y frontend instalación base
+  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'title', 'region', 'pages', 'cache'));
+  foreach ($blocks as $block) {
+    $query->values($block);
+  }
+
+  $query->execute();
+
+  // Utiliza metodo para habilitar los temas del sitio
+  // Temas sin llaves definidas, serán asignados valores numericos pero no serán definidos como variables
+  $temas = array(
+      'admin_theme' => $admin_theme,
+      'theme_default' => $default_theme,
+  );
+
+  theme_enable($temas);
+
+  foreach ($temas as $v => $tema) {
+    if (!is_numeric($v)) {
+        variable_set($v, $tema); 
+    }
+  }
+  // Deshabilita el tema default frontend: Bartik
+  theme_disable(array('bartik'));
+
+  variable_set('node_admin_theme', '1');
+
+  // Insert default pre-defined node types into the database. For a complete
+  // list of available node type attributes, refer to the node type API
+  // documentation at: http://api.drupal.org/api/HEAD/function/hook_node_info.
+  $types = array(
+    array(
+      'type' => 'page',
+      'name' => st('Basic page'),
+      'base' => 'node_content',
+      'description' => st("Use <em>basic pages</em> for your static content, such as an 'About us' page."),
+      'custom' => 1,
+      'modified' => 1,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'article',
+      'name' => st('Article'),
+      'base' => 'node_content',
+      'description' => st('Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.'),
+      'custom' => 1,
+      'modified' => 1,
+      'locked' => 0,
+    ),
+  );
+
+  foreach ($types as $type) {
+    $type = node_type_set_defaults($type);
+    node_type_save($type);
+    node_add_body_field($type);
+  }
+
+  // Insert default pre-defined RDF mapping into the database.
+  $rdf_mappings = array(
+    array(
+      'type' => 'node',
+      'bundle' => 'page',
+      'mapping' => array(
+        'rdftype' => array('foaf:Document'),
+      ),
+    ),
+    array(
+      'type' => 'node',
+      'bundle' => 'article',
+      'mapping' => array(
+        'field_image' => array(
+          'predicates' => array('og:image', 'rdfs:seeAlso'),
+          'type' => 'rel',
+        ),
+        'field_tags' => array(
+          'predicates' => array('dc:subject'),
+          'type' => 'rel',
+        ),
+      ),
+    ),
+  );
+  foreach ($rdf_mappings as $rdf_mapping) {
+    rdf_mapping_save($rdf_mapping);
+  }
+
+  // Default "Basic page" to not be promoted and have comments disabled.
+  variable_set('node_options_page', array('status'));
+  variable_set('comment_page', COMMENT_NODE_HIDDEN);
+
+  // Don't display date and author information for "Basic page" nodes by default.
+  variable_set('node_submitted_page', FALSE);
+
+  // Enable user picture support and set the default to a square thumbnail option.
+  variable_set('user_pictures', '1');
+  variable_set('user_picture_dimensions', '1024x1024');
+  variable_set('user_picture_file_size', '800');
+  variable_set('user_picture_style', 'thumbnail');
+
+  // Allow visitor account creation with administrative approval.
+  variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+
+  // Create a default vocabulary named "Tags", enabled for the 'article' content type.
+  $description = st('Use tags to group articles on similar topics into categories.');
+  $vocabulary = (object) array(
+    'name' => st('Tags'),
+    'description' => $description,
+    'machine_name' => 'tags',
+  );
+  taxonomy_vocabulary_save($vocabulary);
+
+  $field = array(
+    'field_name' => 'field_' . $vocabulary->machine_name,
+    'type' => 'taxonomy_term_reference',
+    // Set cardinality to unlimited for tagging.
+    'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+    'settings' => array(
+      'allowed_values' => array(
+        array(
+          'vocabulary' => $vocabulary->machine_name,
+          'parent' => 0,
+        ),
+      ),
+    ),
+  );
+  field_create_field($field);
+
+  $help = st('Enter a comma-separated list of words to describe your content.');
+  $instance = array(
+    'field_name' => 'field_' . $vocabulary->machine_name,
+    'entity_type' => 'node',
+    'label' => 'Tags',
+    'bundle' => 'article',
+    'description' => $help,
+    'widget' => array(
+      'type' => 'taxonomy_autocomplete',
+      'weight' => -4,
+    ),
+    'display' => array(
+      'default' => array(
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 10,
+      ),
+    ),
+  );
+  field_create_instance($instance);
+
+
+  // Create an image field named "Image", enabled for the 'article' content type.
+  // Many of the following values will be defaulted, they're included here as an illustrative examples.
+  // See http://api.drupal.org/api/function/field_create_field/7
+  $field = array(
+    'field_name' => 'field_image',
+    'type' => 'image',
+    'cardinality' => 1,
+    'locked' => FALSE,
+    'indexes' => array('fid' => array('fid')),
+    'settings' => array(
+      'uri_scheme' => 'public',
+      'default_image' => FALSE,
+    ),
+    'storage' => array(
+      'type' => 'field_sql_storage',
+      'settings' => array(),
+    ),
+  );
+  field_create_field($field);
+
+  // Many of the following values will be defaulted, they're included here as an illustrative examples.
+  // See http://api.drupal.org/api/function/field_create_instance/7
+  $instance = array(
+    'field_name' => 'field_image',
+    'entity_type' => 'node',
+    'label' => 'Image',
+    'bundle' => 'article',
+    'description' => st('Upload an image to go with this article.'),
+    'required' => FALSE,
+    'settings' => array(
+      'file_directory' => 'field/image',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'alt_field' => TRUE,
+      'title_field' => '',
+    ),
+    'widget' => array(
+      'type' => 'image_image',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+        'preview_image_style' => 'thumbnail',
+      ),
+      'weight' => -1,
+    ),
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'type' => 'image',
+        'settings' => array('image_style' => 'large', 'image_link' => ''),
+        'weight' => -1,
+      ),
+      'teaser' => array(
+        'label' => 'hidden',
+        'type' => 'image',
+        'settings' => array('image_style' => 'medium', 'image_link' => 'content'),
+        'weight' => -1,
+      ),
+    ),
+  );
+
+  field_create_instance($instance);
+
+  // Enable default permissions for system roles.
+  $filtered_html_permission = filter_permission_name($filtered_html_format);
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'access comments', $filtered_html_permission));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', 'access comments', 'post comments', 'skip comment approval', $filtered_html_permission));
+
+  // Create a default role for site administrators, with all available permissions assigned.
+  $admin_role = new stdClass();
+  $admin_role->name = 'administrator';
+  $admin_role->weight = 2;
+  user_role_save($admin_role);
+  user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
+  // Set this as the administrator role.
+  variable_set('user_admin_role', $admin_role->rid);
+
+  // Assign user 1 the "administrator" role.
+  db_insert('users_roles')
+    ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
+    ->execute();
+
+  // Create a Home link in the main menu.
+  $item = array(
+    'link_title' => st('Home'),
+    'link_path' => '<front>',
+    'menu_name' => 'main-menu',
+  );
+  menu_link_save($item);
+
+  // Update the menu router information.
+  menu_rebuild();
+}
+
+function govi_update_7100() {
+    $transparencia = block_load('menu', 'menu-transparencia-segundo-nivel');
+    if (!empty($transparencia->bid)) {
+
+        db_update('block')
+            ->fields(array(
+                'title' => '<none>',
+                'theme' => variable_get('theme_default'),
+            ))
+            ->condition('bid', (int)$transparencia->bid, '=')
+            ->execute();
+    }
+}
+
+function govi_update_7101() {
+
+    $query = new EntityFieldQuery();
+
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'webform')
+        ->propertyCondition('status', 1)
+        ->propertyCondition('title','Correo electrónico para notificaciones judiciales');
+
+    $result = $query->execute();
+
+    $node = node_load(array_values($result['node'])[0]->nid);
+    // normaliza el machine name
+    $node->webform['machine_name'] = $node->machine_name = 'form_notificaciones_judiciales';
+    // Define el path adecuado
+    $node->path['alias'] = 'transparencia/atencion-ciudadano/notificaciones-judiciales';
+
+    node_save($node);
+
+}

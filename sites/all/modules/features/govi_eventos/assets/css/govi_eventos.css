@@ -1,0 +1,39 @@
+/* Añade estilos para mejorar la visualización de los eventos por dia*/
+
+.calendar-calendar .day-view .single-day .inner {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: auto;
+  height: 100px !important;
+}
+.calendar-calendar .day-view .single-day .inner .item {*/
+  /* Inline-block, said enough ways to give it cross-browser support. :) */
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+.calendar-calendar .day-view .single-day .inner .item .view-item {
+  position: relative;
+}
+
+.calendar-calendar .day-view .single-day .views-field-title{
+  float: left;
+  display: inline-block;
+  margin-top: 6px !important;
+}
+
+.calendar-calendar .day-view .single-day .views-field-field-fecha-evento{
+  float: left;
+  margin-top: 10px !important;
+}
+
+
+.field-name-field-video-evento .field-items .field-item{
+  float: left;
+  padding: 0.5em;
+  width: 45%;
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Servicio al Ciudadano feature.
+ */
+
+include_once 'govi_servicio_al_ciudadano.features.inc';

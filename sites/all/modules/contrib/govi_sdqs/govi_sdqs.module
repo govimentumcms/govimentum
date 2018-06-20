@@ -1,0 +1,686 @@
+<?php
+
+// Definición del bloque
+
+function govi_sdqs_block_info() {
+    $block = array();
+
+    $block['govi_sdqs_block'] = array(
+        'info' => 'Govi SDQS',
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+
+    return $block;
+}
+
+function govi_sdqs_block_view($delta = '') {
+
+    $block = array();
+
+    $block['subject'] = 'Servicio al ciudadano';
+    $block['content'] = govi_sdqs_block_content();
+
+    return $block;
+}
+
+function govi_sdqs_block_content() {
+
+        return theme('govi_sdqs_display');
+}
+
+// Manejador de templates del módulo
+function govi_sdqs_theme($existing, $type, $theme, $path) {
+
+    return array(
+        'govi_sdqs_display' => array(
+            'template' => 'templates/sdqs',
+        ),
+
+        'govi_sdqs_form' => array(
+            'render element' => 'form',
+            'template' => 'templates/form',
+        ),
+    );
+}
+
+function theme_govi_sdqs_form ($variables) {
+
+    drupal_flush_all_caches();
+    $form = $variables['form'];
+    return $form;
+}
+
+// Define recursos para manejar las operaciones del módulo
+// i.e: crear, consultar ...
+function govi_sdqs_menu() {
+
+    $items = array();
+    $admin_url='admin/config/system/sdqs-client';
+    if(drupal_get_profile()=='govi') {
+      $admin_url='admin/config/features/sdqs-client';
+    }
+
+    $items[$admin_url] = array(
+        'title' => 'Cliente Sistema Distrital de Quejas y Soluciones',
+        'descriptión' => 'Configuración del Cliente SOAP del SDQS',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('govi_sdqs_admin_config_main_form'),
+        'access arguments' => array('access administration pages'),
+        'file' => 'includes/govi-sdqs.admin.inc'
+    );
+
+    $items['govi-sdqs/crear'] = array(
+        'title' => 'Crear petición',
+        'page callback' => 'drupal_get_form',
+
+        'page arguments' => array('govi_sdqs_crear_peticion_form'),
+        'access callback' => TRUE,
+    );
+
+    // Deshabilita recurso debido que el alcance para la
+    // primera versión redireccionará directamente al SDQS
+    // hasta que exista un servicio que permita consultar
+    // el detalle de la petición
+    /*
+    $items['govi-sdqs/consultar'] = array(
+        'title' => 'Consultar petición',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('govi_sdqs_consultar_peticion_form'),
+        'access arguments' => array('access content'),
+        'access callback' => TRUE,
+        //'theme callback' => 'govi_form_popup',
+        //'type' => MENU_CALLBACK
+    );
+
+
+    $items['govi-sdqs/detalle-peticion'] = array(
+        'title' => 'Detalles de la consulta',
+        'page callback' => 'govi_sdqs_ver_detalles',
+        'access arguments' => array('access content'),
+        'access callback' => TRUE,
+        'theme callback' => 'govi_sdqs_details',
+        'type' => MENU_CALLBACK
+    );
+    */
+
+    return $items;
+}
+
+function govi_sdqs_crear_peticion_form($form, &$form_state) {
+
+    $form = array();
+
+    $form['#theme'] = 'govi_sdqs_form';
+
+    $form['#prefix'] = '<div id="govi-sdqs-form-container">';
+    $form['#suffix'] = '</div>';
+
+    $temas = variable_get('govi_sdqs_lista_tema');
+    $entidades = variable_get('govi_sdqs_lista_entidades');
+    $tipos_peticion = variable_get('govi_sdqs_lista_tipo_peticion');
+    $tipos_id = variable_get('govi_sdqs_lista_tipos_id');
+    $paises = variable_get('govi_sdqs_lista_paises');
+    $departamentos = variable_get('govi_sdqs_lista_departamentos');
+    $path = drupal_get_path('module', 'govi_sdqs');
+    $css = $path . '/assets/css/govi-sdqs-form.css';
+    $js = $path . '/assets/js/govi-sdqs-form.js';
+    drupal_add_js($js);
+    drupal_add_css($css);
+    $form['datos_personales'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Datos persona natural',
+        '#weight' => -1
+    );
+    $form['datos_personales']['tipo_solicitante'] = array(
+        '#type' => 'select',
+        '#title' => 'Tipo de solicitante',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => Array(#options' => array(
+          'natural' => t('Persona Natural'),
+          'juridica' => t('Persona Jurídica'),
+          'infantil' => t('Niños, niñas y adolescentes'),
+          'apoderado' => t('Apoderado'),
+          'anonimo' => t('Persona Anónima'),
+
+       ),
+        '#default_value' => 'natural',
+    );
+    $form['datos_personales']['nombre'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Nombre',
+        '#description' => 'Ingrese su primer nombre',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#size' => 60,
+    );
+
+    $form['datos_personales']['apellido'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Apellido',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#description' => 'Ingrese su primer apellido',
+        '#size' => 60
+    );
+
+    $opts_ids = array();
+
+    foreach ($tipos_id as $tipo) {
+        $opts_ids[$tipo['abreviatura']] = $tipo['nombre'];
+    }
+
+    $form['datos_personales']['tipo_identificacion'] = array(
+        '#type' => 'select',
+        '#title' => 'Tipo de identificación',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => !empty($opts_ids) ? $opts_ids : array(),
+        '#default_value' => 'CC',
+        '#required' => TRUE
+    );
+
+    $form['datos_personales']['numero_identificacion'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#title' => 'Numero identificación',
+    );
+
+    $form['datos_personales']['correo_electronico'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Correo electrónico',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+    );
+    $form['datos_personales']['razon_social'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Razón social',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#required' => FALSE
+    );
+    $opts_pais = array();
+
+    foreach ($paises as $pais) {
+        $opts_pais[$pais['id']] = ucfirst(mb_strtolower($pais['nombre'],'UTF-8'));
+    }
+    $form['datos_personales']['pais'] = array(
+        '#type' => 'select',
+        '#title' => 'País',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => !empty($opts_pais) ? $opts_pais : array(),
+        '#default_value' => 42,
+
+        '#required' => TRUE
+    );
+
+    $opts_departamento = array();
+    foreach ($departamentos as $departamento) {
+        $opts_departamento[$departamento['id']] = ucfirst(mb_strtolower($departamento['nombre'], 'UTF-8'));
+    }
+    $form['datos_personales']['departamento'] = array(
+        '#type' => 'select',
+        '#title' => 'Departamento',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => !empty($opts_departamento) ? $opts_departamento : array(),
+        '#ajax' => array(
+            'event' => 'change',
+            'effect' => 'fade',
+            'callback' => 'govi_sdqs_obtener_info_ciudades',
+            'method' => 'replace',
+            'wrapper' => 'wrapper-ciudades',
+        ),
+        '#default_value' => 3,
+        '#validated' => TRUE,
+    );
+
+
+    $form['datos_personales']['ciudad'] = array(
+        '#type' => 'select',
+        '#prefix' => '<div id="wrapper-ciudades">',
+        '#suffix' => '</div>',
+        '#title' => 'Municipio/Ciudad',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => Array( 149 => 'Bogotá D.C.'),
+        '#required' => FALSE,
+        '#default_value' => 0,
+        '#validated' => TRUE,
+
+    );
+    $form['datos_personales']['direccion'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#title' => 'Dirección',
+    );
+    $form['datos_personales']['telefono_fijo'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#title' => 'Teléfono Fijo',
+    );
+    $form['datos_personales']['telefono_movil'] = array(
+        '#type' => 'textfield',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#title' => 'Teléfono Móvil',
+    );
+
+
+    $form['pqr_crear'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Solicitud',
+    );
+
+    $opts_peticion = array();
+
+    foreach ($tipos_peticion as $tipo) {
+        $opts_peticion[$tipo['id']] = ucfirst(mb_strtolower($tipo['nombre'], 'UTF-8'));
+    }
+
+    $form['pqr_crear']['tipo_peticion'] = array(
+        '#type' => 'select',
+        '#title' => 'Tipo de petición',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => !empty($opts_peticion) ? $opts_peticion : array(),
+        '#required' => TRUE
+    );
+
+    $opts_temas = array();
+
+    foreach ($temas as $tema) {
+        $opts_temas[$tema['id']] = $tema['nombre'];
+    }
+
+    // TODO: implementar autocomletado controlado desde el cliente
+    // con JavaScript
+    $opts_entidades = array();
+
+    foreach ($entidades as $entidad) {
+        $opts_entidades[$entidad['id']] = $entidad['nombre'];
+    }
+
+    $form['pqr_crear']['asunto'] = array(
+        '#type' => 'textarea',
+        '#title' => 'Contenido de la solicitud',
+        '#cols' => 30,
+        '#attributes' => array('class' => array('pure-u-1')),
+        '#required' => TRUE,
+    );
+
+    $form['pqr_crear']['archivo'] = array(
+        '#type' => 'managed_file',
+        '#title' => 'Archivos o documentos',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+    );
+    $opts_respuesta = array('email'=>'Correo electrónico','correspondencia'=>'Correo físico');
+    $form['pqr_crear']['respuesta'] = array(
+        '#type' => 'select',
+        '#title' => 'Medio de respuesta',
+        '#description' => '¿Cómo deseas recibir la respuesta?',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#options' => !empty($opts_respuesta) ? $opts_respuesta : array(),
+        '#default_value' => 'email',
+    );
+
+    $form['pqr_crear']['terminos_habeas_data'] = array(
+        '#type' => 'checkbox',
+        '#title' => 'He leído y estoy de acuerdo con los términos y condiciones de uso de datos, implementados por la Secretaria General de la Alcaldía Mayor de Bogotá D.C resolución 070 de 2017 (Febrero 2017). ',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#return_value' => 'Sí',
+        '#default_value' => 0,
+    );
+
+    $form['pqr_crear']['terminos_correo'] = array(
+        '#type' => 'checkbox',
+        '#title' => 'Certifico que el correo electrónico ingresado en mis datos personales se encuentra vigente, de igual manera autorizo al Sistema Distrital de Queja y Soluciones para el envío de la respuesta a mi solicitud por este medio. Se informa que el uso del SDQS y de lo referente a transacciones del sistema, no generan ningún costo asociado; salvo lo contenido en lo que se determine en cualquier entidad distrital en el link de transparencia y acceso a la información pública: Instrumentos de gestión de información pública, (8 costos de reproducción).
+',
+        '#attributes' => array('class' => array('pure-u-23-24')),
+        '#return_value' => 'Sí',
+        '#default_value' => 0,
+    );
+    $form['captcha'] = array(
+        '#type' => 'captcha',
+        //'#captcha_type' => 'captcha/Math',
+        // Utilice este tipo para sitios en producción */
+        '#captcha_type' => 'recaptcha/reCAPTCHA',
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Enviar',
+        '#ajax' => array(
+            'callback' => 'govi_sdqs_crear_peticion_ajax_submit',
+            'wrapper' => 'govi-sdqs-form-container',
+            'method' => 'replaceWith',
+            'effect' => 'fade',
+        ),
+        '#attributes' => array(
+            'class' => array(
+                'pure-button',
+                'pure-button-primary'
+            ),
+        ),
+    );
+
+    $form['#attributes']['class'][] = 'pure-form';
+    $form['#attributes']['class'][] = 'pure-form-stacked';
+
+    return $form;
+}
+function govi_sdqs_crear_peticion_form_validate($form, &$form_state) {
+    
+    $nombre = $form_state['values']['nombre'];
+    $apellido = $form_state['values']['apellido'];
+    $tipo_solicitante = $form_state['values']['tipo_solicitante'];
+    $tipo_peticion = $form_state['values']['tipo_peticion'];
+    $correo_electronico = $form_state['values']['correo_electronico'];
+
+
+    $tipo_identificacion = $form_state['values']['tipo_identificacion'];
+    $numero_identificacion = $form_state['values']['numero_identificacion'];
+    $telefono_fijo = $form_state['values']['telefono_fijo'];
+    $telefono_movil = $form_state['values']['telefono_movil'];
+    $direccion = $form_state['values']['direccion'];
+    $terminos1=$form_state['values']['terminos_habeas_data'];
+    $terminos2=$form_state['values']['terminos_correo'];
+    //Si el tipo de petición es un usuario anónimo
+    if(!empty($tipo_solicitante) && $tipo_solicitante=='anonimo'  ) {
+
+
+    } else {
+        if($tipo_identificacion =='NI' && !preg_match("/([0-9]).*.-([0-9])/",$numero_identificacion)) {
+            form_set_error('tipo_identificacion','Número de NIT inválido. Use el formato : 123456789-3');
+        } 
+        if(!empty($telefono_fijo) && strlen($telefono_fijo) < 7 ) {
+            form_set_error('telefono_fijo','El número de teléfono fijo debe tener al menos 7 dígitos');
+        }
+        if(!empty($telefono_movil) && strlen($telefono_movil) < 10 ) {
+            form_set_error('telefono_movil','El número de teléfono móvil debe tener al menos 10 dígitos');
+        }
+      if(empty($nombre)) {
+        form_set_error('nombre','El campo Nombre es requerido.');
+      }
+      if(empty($apellido)) {
+        form_set_error('apellido','El campo Apellido es requerido.');
+      }
+      if(empty($correo_electronico)) {
+        form_set_error('correo_electronico','El campo Correo electrónico es requerido.');
+      }
+      if(empty($tipo_identificacion)) {
+        form_set_error('tipo_identificacion','El campo Tipo de identificación es requerido.');
+      }
+      if(empty($numero_identificacion)) {
+        form_set_error('numero_identificacion','El campo Número identificación es requerido.');
+      }
+      if(empty($telefono_fijo)) {
+        form_set_error('telefono_fijo','El campo Teléfono fijo es requerido.');
+      }
+      if(empty($telefono_movil)) {
+        form_set_error('telefono_movil','El campo Teléfono móvil es requerido.');
+      }
+      if(empty($direccion)) {
+        form_set_error('direccion','El campo Dirección es requerido.');
+      }
+      if(empty($terminos1)) {
+        form_set_error('terminos_habeas_data','El campo Términos y condiciones es requerido.');
+      }
+      if(empty($terminos2)) {
+        form_set_error('terminos_correo','El campo Términos y condiciones correo es requerido.');
+      }
+    }
+
+
+    if(empty($tipo_peticion)) {
+      form_set_error('tipo_peticion','El campo Tipo de petición es requerido.');
+    }
+    if(empty($tipo_solicitante)) {
+      form_set_error('tipo_solicitante','El campo Tipo de solicitante es requerido.');
+    }
+    if(!empty($correo_electronico) && !valid_email_address($correo_electronico)  ) {
+      form_set_error('correo_electronico','El correo electrónico debe ser una dirección de correo válida.');
+    }
+
+
+
+
+
+}
+
+function govi_sdqs_crear_peticion_ajax_submit($form, &$form_state) {
+
+    global $base_url;
+    $output = '';
+
+    $codigo_dependencia = variable_get('sdqs_dependencia');
+    $codigo_entidad = variable_get('sdqs_entidad');
+    $id_sector = variable_get('sdqs_sector');
+    $codigo_tema = variable_get('sdqs_tema');
+
+
+
+    
+    if ($form_state['executed']) {
+
+        $nid_log = govi_sdqs_create_log_node();
+
+        $service = wsclient_service_load('service_radicacion_canal');
+        $tipo_solicitante = $form_state['values']['tipo_solicitante'];
+
+        $obs = '';
+
+        $obs .= 'Este requerimiento ha sido realizado a través del módulo Govi SDQS ';
+        $obs .= 'de la Distribución Distrital CMS. Los datos de identificación del sitio ';
+        $obs .= 'web son los siguientes:' . PHP_EOL;
+        $obs .= 'Nombre de dominio: ' . $base_url . PHP_EOL;
+
+        if(!empty($tipo_solicitante) && $tipo_solicitante!='anonimo'  ) {
+            $obs .= 'Direccion IP: ' . ip_address() . PHP_EOL;
+            $obs .= 'Tipo de Solicitante: ' . $form_state['values']['tipo_solicitante'] . PHP_EOL;
+
+            if(!empty($form_state['values']['razon_social'])) {
+              $obs .= 'Razón Social: ' . $form_state['values']['razon_social'] . PHP_EOL;
+            }
+            $obs .= 'Medio de Respuesta: ' . $form_state['values']['respuesta'] . PHP_EOL;
+            $obs .= 'Dirección: ' . $form_state['values']['direccion'] . PHP_EOL;
+            $obs .= 'Teléfono: ' . $form_state['values']['telefono_fijo'] . PHP_EOL;
+            $obs .= 'Teléfono móvil: ' . $form_state['values']['telefono_movil'] . PHP_EOL;
+
+            $obs .= 'Correo electrónico: ' . $form_state['values']['correo_electronico'] . PHP_EOL;
+            $obs .= 'Términos y condiciones: ' . $form_state['values']['terminos_habeas_data'] . PHP_EOL;
+            $obs .= 'Términos y condiciones correo: ' . $form_state['values']['terminos_correo'] . PHP_EOL;
+        }
+
+        $data = array(
+            'parameters' => array(
+                'requerimiento' => array(
+                    'asunto' => $form_state['values']['asunto'],
+                    'clasificacionRequerimiento' => array(
+                        // Valores standard provisionales mientas se
+                        // validan con el SDQS con el fin de crear una clasificación
+                        // específica para los requerimientos realizados desde los sitios 
+                        // web que utilizan el servicio.
+                        // El código dependencia será gestionado desde el backend con 
+                        // base a la lista entregada por el equipo funcional de la DDSC
+                        'codigoEntidad' => $codigo_entidad,
+                        'codigoSector' => $id_sector,
+                        'codigoSubtema' => $codigo_tema, 
+                    ),
+                    'numeroFolios' => 0,
+                    'prioridad' => 0,
+                    'codigoTipoRequerimiento' => $form_state['values']['tipo_peticion'],
+                    'entidadQueIngresaRequerimiento' => $codigo_entidad,
+                    'codigoCanal' => 7,
+                    // TODO: Número único del log de registros del sitio web
+//                    'numeroRadicado' => node_load($nid_log)->field_sdqs_log_count['und'][0]['value'],
+                    'numeroRadicado' => node_load($nid_log)->field_sdqs_log_count['und'][0]['value'], 
+                    'observaciones' => $obs,
+                ),
+
+            ),
+        );
+
+        if(!empty($form_state['values']['apellido'])){
+          $data['parameters']['requerimiento']['apellidos']= $form_state['values']['apellido'];
+        }
+        if(!empty($form_state['values']['nombre'])){
+          $data['parameters']['requerimiento']['nombres']= $form_state['values']['nombre'];
+        }
+        if(!empty($form_state['values']['tipo_identificacion'])){
+          $data['parameters']['requerimiento']['codigoTipoIdentificacion']= $form_state['values']['tipo_identificacion'];
+        }
+        if(!empty($form_state['values']['numero_identificacion'])){
+          $data['parameters']['requerimiento']['numeroDocumento']= $form_state['values']['numero_identificacion'];
+        }
+        if(!empty($form_state['values']['apellido'])){
+          $data['parameters']['requerimiento']['apellidos']= $form_state['values']['apellido'];
+        }        
+        if(!empty($form_state['values']['correo_electronico'])){
+          $data['parameters']['requerimiento']['email']= $form_state['values']['correo_electronico'];
+        }     
+        if(!empty($form_state['values']['ciudad'])){
+          $data['parameters']['requerimiento']['codigoCiudad']= $form_state['values']['ciudad'];
+        }
+        if(!empty($form_state['values']['pais'])){
+          $data['parameters']['requerimiento']['codigoPais']= $form_state['values']['pais'];
+        }        
+        if(!empty($form_state['values']['departamento'])){
+          $data['parameters']['requerimiento']['codigoDepartamento']= $form_state['values'][''];
+        }     
+
+        if(!empty($form_state['values']['telefono_fijo'])){
+          $data['parameters']['requerimiento']['telefonoCasa']= $form_state['values']['telefono_fijo'];
+          $data['parameters']['requerimiento']['telefonoOficina']= $form_state['values']['telefono_fijo'];
+
+        }
+        if(!empty($form_state['values']['telefono_movil'])){
+          $data['parameters']['requerimiento']['telefonoCelular']= $form_state['values']['telefono_movil'];
+        } 
+        if(!empty($form_state['values']['direcion'])){
+          $data['parameters']['requerimiento']['direccion']= $form_state['values']['direccion'];
+        }            
+        if($codigo_dependencia!=0){
+          $data['parameters']['requerimiento']['clasificacionRequerimiento']['codigoDependencia']= $codigo_dependencia;
+        }        
+
+
+
+        //Si el tipo de documento es NIT se agrega el dígito de verificación
+        if($form_state['values']['tipo_identificacion']=='NI'){
+          $identificacion = explode("-",$form_state['values']['numero_identificacion']);
+          $data['parameters']['requerimiento']['numeroDocumento']= $identificacion[0];
+          $data['parameters']['requerimiento']['digitoVerificacion']= $identificacion[1];
+        }
+        $fid=0;
+        if(empty($form_state['values']['archivo']) && !empty($_POST['archivo'])){
+          $fid=$_POST['archivo']['fid']; 
+	} else {
+          $fid = $form_state['values']['archivo'];	
+	}
+        if (!empty($fid)) {
+            $data['parameters']['requerimiento']['documento'] = array();
+            $file = file_load($fid);
+            $content = file_get_contents(file_directory_temp().'/'.$file->filename);
+
+            $data['parameters']['requerimiento']['documento']['contenidoDocumento'] = base64_encode($content);
+            $data['parameters']['requerimiento']['documento']['mimeType'] = $file->filemime;
+            $data['parameters']['requerimiento']['documento']['nombreArchivo'] = $file->filename;
+        }
+
+        try {
+            $result = $service->invoke('registrarRequerimiento', $data);
+            if( !empty($result->return->codigoError) && $result->return->codigoError > 0){
+              $output .= '<h3>Se ha presentado un error</h3>';
+              $output .= '<p>'.$result->return->descripcion.'</p>';
+              govi_sdqs_log_event($form_state, $nid_log, $result);
+
+            } else {
+                $output .= '<h3>¡Solicitud enviada con éxito!</h3>';
+                $output .= '<p>Respetado(a) ' .$form_state['values']['nombre']. ', por favor tome nota de los siguientes ';
+                $output .= 'datos para hacer seguimiento a su petición.' . PHP_EOL;
+                $output .= 'Esta información ha sido enviada al correo electrónico si fué registrado previamente: ' . $form_state['values']['correo_electronico'];
+                $output .= '<hr/>';
+                $output .= '<ul><li>Fecha de solicitud: ' . $result->return->fechaCreacion . '</li>';
+                $output .= '<li>Codigo de requerimiento SDQS: ' . $result->return->codigoRequerimiento . '</li>';
+                $output .= '<br>';
+                $output .= 'Si es una solicitud anónima puede hacer seguimiento a través de la dirección <a href="http://sdqs.bogota.gov.co/sdqs/publico/hojaRuta/?language=es">Consultar hoja de ruta</a>';
+
+                govi_sdqs_log_event($form_state, $nid_log, $result);
+            }
+        } catch (WSClientException $exception) {
+
+            $output .= '<h3>Ha ocurrido un error inesperado</h3>';
+            $output .= '<p>Comuníquese con el administrador o ingrese directamente a </br> </br><a href="http://sdqs.bogota.gov.co/sdqs/publico/registrarPeticion/?language=es">Registrar Petición</a> </p>';
+
+            print $exception->__toString(); 
+            watchdog('govi_sdqs', $exception->__toString());
+            govi_sdqs_log_event($form_state, $nid_log, $result, $exception);
+
+        }
+
+    } else {
+
+        $output = $form;
+    }
+
+    return $output;
+}
+
+/**
+ * Método que crea el nodo que almacenará
+ * los detalles de la petición. Inicialmente es creado
+ * con un nombre generico para que el módulo serial
+ * cree el numero autoincremental como identificacion
+ * del requerimiento interno del sitio.
+ */
+
+function govi_sdqs_create_log_node() {
+
+    global $user;
+
+    $node = new stdClass();
+    $node->type = 'sdqs_logs';
+
+    $node->title = 'Requerimiento sin iniciar';
+    node_object_prepare($node);
+
+    $node->language = LANGUAGE_NONE;
+    $node->uid = $user->uid;
+    $node->status = 0;
+    $node->promote = 0;
+    $node->comment = 0;
+
+    node_save($node);
+    return $node->nid;
+}
+function govi_sdqs_obtener_info_ciudades($form, $form_state) {
+
+    $departamento = $form_state['values']['departamento'];
+    
+    $ciudades = variable_get('govi_sdqs_lista_ciudades');
+    $ciudades=array_filter($ciudades, function($value) use ($departamento) { return is_array($value) &&  $value['idDepartamento'] == $departamento; });
+    $opts_ciudades = array();
+    foreach ($ciudades as $ciudad) {
+        if(!empty($ciudad['id'])) {
+            $opts_ciudades[ $ciudad['id'] ] = ucfirst(mb_strtolower($ciudad['nombre']));
+        }  
+    }
+    print_r($opts_ciudades);
+    $form['datos_personales']['ciudad']['#options'] = $opts_ciudades;
+    return $form['datos_personales']['ciudad'];
+}
+/**
+ * Método que actualiza los detalles del
+ * requerimiento en el nodo previamente creado
+ * actualizando el titulo genérico con el
+ * identificador interno del requerimiento en
+ * el sitio.
+ */
+
+function govi_sdqs_log_event($form_state, $nid_log, $result, $error = FALSE) {
+
+    drupal_set_message('Actualizando log de eventos');
+
+    $node = node_load($nid_log);
+
+    $node->title = 'Requerimiento Radicado No.'. $node->field_sdqs_log_count['und'][0]['value'];
+    $node->field_sdqs_fecha_radicacion['und'][0]['value'] = format_date(REQUEST_TIME, 'long');
+    $node->field_sdqs_correo_peticionario['und'][0]['value'] = $form_state['values']['correo_electronico'];
+    $node->field_sdqs_tipo_id['und'][0]['value'] = $form_state['values']['tipo_identificacion'];
+    $node->field_sdqs_id_peticionario['und'][0]['value'] = $form_state['values']['numero_identificacion'];
+    $node->field_sdqs_numero['und'][0]['value'] = $result->return->codigoRequerimiento;
+    $node->field_sdqs_codigo_respuesta = "OK";
+
+    node_save($node);
+}

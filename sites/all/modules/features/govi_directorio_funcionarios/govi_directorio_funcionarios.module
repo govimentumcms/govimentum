@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Institucional Transparencia feature.
+ */
+
+include_once 'govi_directorio_funcionarios.features.inc';

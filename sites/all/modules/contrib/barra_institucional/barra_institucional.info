@@ -1,0 +1,7 @@
+name = Barra institucional
+description = Módulo que implementa la barra institucional para los sitios web de las entidades distritales
+package = Govimentum
+core = 7.x
+configure = admin/config/features/institutional_bar
+project = barra_institucional
+version = 7.x-1.0

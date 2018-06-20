@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Información de Interes feature.
+ */
+
+include_once 'govi_informacion_interes.features.inc';

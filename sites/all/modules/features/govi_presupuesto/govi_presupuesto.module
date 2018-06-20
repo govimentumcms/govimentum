@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Presupuesto feature.
+ */
+
+include_once 'govi_presupuesto.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi Pie de Página Institucional feature.
+ */
+
+include_once 'govi_mecanismos_contacto.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Feature featured links feature.
+ */
+
+include_once 'govi_links_destacados.features.inc';

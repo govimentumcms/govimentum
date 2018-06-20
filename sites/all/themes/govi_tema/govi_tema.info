@@ -1,0 +1,55 @@
+name = Govimentum
+description = Tema está basado en purecss.io, el cual es un set ligero de módulos CSS que provee las herramientas necesarias para la construccion de interfaces web como: reset, grillas, formularios, botones y tablas a partir de una arquitectura modular y escalable como mejor práctica para la definición de CSS.
+core = 7.x
+
+; -------------------------------
+;stylesheets[all][] = assets/css/
+
+stylesheets[all][] = assets/css/base.css
+;stylesheets[all][] = assets/css/pure.css
+stylesheets[all][] = assets/css/grids.css
+stylesheets[all][] = assets/css/pure-grillas-responsivas.css
+stylesheets[all][] = assets/css/pure-botones.css
+stylesheets[all][] = assets/css/iconos.css
+stylesheets[all][] = assets/css/formularios.css
+stylesheets[all][] = assets/css/menus.css
+stylesheets[all][] = assets/css/menus-dropdown.css
+stylesheets[all][] = assets/css/govi.css
+stylesheets[all][] = assets/css/micss.css
+
+;-------------------------------
+scripts[] = assets/js/govi.js
+
+;-------------------------------
+regions[help] = Ayuda
+regions[encabezado_a_1]		= 'Encabezado A-1'
+regions[encabezado_a_2]		= 'Encabezado A-2'
+regions[encabezado_a_3]		= 'Encabezado A-3'
+regions[encabezado_b_1]		= 'Encabezado B-1'
+regions[encabezado_b_2]		= 'Encabezado B-2'
+regions[encabezado_b_3]		= 'Encabezado B-3'
+regions[encabezado_c_1]		= 'Encabezado C-1'
+
+regions[posicion_a_1]		= 'Posición A-1'
+regions[posicion_b_1]		= 'Posición B-1'
+regions[posicion_c_1]		= 'Posición C-1'
+regions[posicion_c_2]		= 'Posición C-2'
+regions[posicion_c_3]		= 'Posición C-3'
+regions[posicion_d_1]		= 'Posición D-1'
+regions[posicion_d_2]		= 'Posición D-2'
+regions[posicion_d_3]		= 'Posición D-3'
+regions[posicion_e_1]		= 'Posición E-1'
+regions[posicion_e_3]		= 'Posición E-3'
+
+regions[pie_a_1]		= 'Pie A-1'
+regions[pie_a_2]		= 'Pie A-2'
+regions[pie_a_3]		= 'Pie A-3'
+regions[pie_a_4]		= 'Pie A-4'
+regions[pie_b_1]		= 'Pie B-1'
+regions[pie_b_2]		= 'Pie B-2'
+regions[pie_b_3]		= 'Pie B-3'
+regions[pie_b_4]		= 'Pie B-4'
+regions[pie_c_1]		= 'Pie C-1'
+regions[pie_d_1]		= 'Pie D-1'
+
+regions[content] = Contenido

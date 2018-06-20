@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Govi control feature.
+ */
+
+include_once 'govi_control.features.inc';

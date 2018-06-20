@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Feature news list feature.
+ */
+
+include_once 'govi_noticias.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the govi_contratación feature.
+ */
+
+include_once 'govi_contratacion.features.inc';

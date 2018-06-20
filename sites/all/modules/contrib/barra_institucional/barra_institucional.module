@@ -1,0 +1,69 @@
+<?php
+
+function barra_institucional_menu() {
+
+    $items = array();
+
+    $items['admin/config/features/institutional_bar'] = array(
+        'title' => 'Barra institucional',
+        'description' => 'Sección administrativa para configurar la barra institucional',
+        'page callback' => 'drupal_get_form',
+        'access arguments' => array('access administration pages'),
+        'page arguments' => array('barra_institucional_config_form'),
+        'weight' => 1,
+        'file' => 'includes/barra_institucional.admin.inc',
+    );
+
+    return $items;
+}
+
+function barra_institucional_block_info() {
+    $block = array();
+
+    $block['barra_institucional_block'] = array(
+        'info' => 'Barra institucional',
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+
+    return $block;
+}
+
+function barra_institucional_block_view($delta = '') {
+
+    $block = array();
+
+    $block['subject'] = '';
+    $block['content'] = barra_institucional_block_content();
+
+    return $block;
+}
+
+function barra_institucional_block_content() {
+
+    return theme('barra_institucional_display');
+}
+
+function barra_institucional_theme($existing, $type, $theme, $path) {
+
+    $bi_state = array();
+    $bi_state['is_enabled'] = FALSE;
+    $bi_state['is_activated'] = FALSE;
+
+    return array(
+        'barra_institucional_display' => array(
+            'variables' => $bi_state,
+            'template' => 'templates/barra-institucional',
+        ),
+    );
+}
+
+function theme_barra_institucional_display($variables) {
+
+    $output = array();
+
+    $output['#theme'] = 'barra_institucional';
+    $output['#type'] = 'markup';
+    $output['#variables'] = $variables;
+
+    return $output;
+}

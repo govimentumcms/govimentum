@@ -1,0 +1,16 @@
+<?php
+
+
+/**
+ * Implements hook_install().
+ */
+function barra_institucional_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function barra_institucional_uninstall() {
+
+}
