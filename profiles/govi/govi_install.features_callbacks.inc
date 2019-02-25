@@ -388,7 +388,7 @@ function _enlaces_destacados(&$context) {
 
 }
 
-function _eventos($vocabularios, $terminos, &$context) {
+function _eventos(&$context) {
     module_enable(array('govi_eventos'));
 
     $context['message'] = 'Instalando gestor de eventos';
