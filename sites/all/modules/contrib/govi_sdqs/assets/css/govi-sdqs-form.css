@@ -53,20 +53,21 @@ div.form-item-direccion label:after{
     color:#f00;
     content:' *';
 }
-div.form-item-correo-electronico label:after{
+.correo_electronico.required div.form-item-correo-electronico label:after{
     color:#f00;
     content:' *';
 }
-
-div.form-item-telefono-fijo label:after{
+.correo_electronico div.form-item-correo-electronico label:after{
     color:#f00;
-    content:' *';
+    content:'';
 }
-div.form-item-telefono-movil label:after{
-    color:#f00;
-    content:' *';
+.poderantes{
+  display: none;
 }
-div.form-item-respuesta label:after{
-    color:#f00;
-    content:' *';
+.actions-poderante {
+  background: none !important;
+  border:none !important;
+}
+#poderante-fieldset-wrapper .fieldset-wrapper {
+  border: 0px solid !important;
 }
