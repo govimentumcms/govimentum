@@ -8,10 +8,10 @@ dependencies[] = colorbox
 dependencies[] = captcha
 dependencies[] = recaptcha
 project = govi_sdqs
-version = 7.x-1.0
+version = 7.x-2.1
 
-; Information added by Drupal.org packaging script on 2018-09-26
-version = "7.x-2.0"
+; Information added by Drupal.org packaging script on 2019-02-27
+version = "7.x-2.1"
 core = "7.x"
 project = "govi_sdqs"
-datestamp = "1537972097"
+datestamp = "1551275891"
