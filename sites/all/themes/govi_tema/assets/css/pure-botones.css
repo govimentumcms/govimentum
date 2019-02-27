@@ -32,7 +32,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 /*csslint outline-none:false*/
 
 .pure-button {
-    font-family: 'robotomedium';
+    font-family: 'gotham-roundedmedium';
     font-size: 100%;
     padding: 0.5em 1em;
     color: #fff; /* rgba not supported (IE 8) */

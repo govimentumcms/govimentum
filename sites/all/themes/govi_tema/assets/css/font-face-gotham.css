@@ -1,0 +1,57 @@
+
+@font-face {
+    font-family: 'gotham-roundedbold';
+    src: url('../fonts/gotham-rounded/GothamRnd-Bold.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedbold_italic';
+    src: url('../fonts/gotham-rounded/GothamRnd-BoldIta.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedbook';
+    src: url('../fonts/gotham-rounded/GothamRnd-Book.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedbook_italic';
+    src: url('../fonts/gotham-rounded/GothamRnd-BookIta.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedlight';
+    src: url('../fonts/gotham-rounded/GothamRnd-Light.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedlight_italic';
+    src: url('../fonts/gotham-rounded/GothamRnd-LightIta.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedmedium';
+    src: url('../fonts/gotham-rounded/GothamRnd-Medium.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'gotham-roundedmedium_italic';
+    src: url('../fonts/gotham-rounded/GothamRnd-MedIta.otf');
+    font-weight: normal;
+    font-style: normal;
+
+}

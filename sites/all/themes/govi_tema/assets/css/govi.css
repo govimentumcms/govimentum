@@ -1,187 +1,46 @@
-@font-face {
-    font-family: 'robotoblack';
-    src: url('../fonts/roboto-black-webfont.eot');
-    src: url('../fonts/roboto-black-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-black-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-black-webfont.woff') format('woff'),
-         url('../fonts/roboto-black-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-black-webfont.svg#robotoblack') format('svg');
-    font-weight: normal;
-    font-style: normal;
+@import url('font-face-gotham.css');
+/*  @import url('font-face-roboto.css'); */
 
-}
-@font-face {
-    font-family: 'robotoblack_italic';
-    src: url('../fonts/roboto-blackitalic-webfont.eot');
-    src: url('../fonts/roboto-blackitalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-blackitalic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-blackitalic-webfont.woff') format('woff'),
-         url('../fonts/roboto-blackitalic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-blackitalic-webfont.svg#robotoblack_italic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotobold';
-    src: url('../fonts/roboto-bold-webfont.eot');
-    src: url('../fonts/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-bold-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-bold-webfont.woff') format('woff'),
-         url('../fonts/roboto-bold-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-bold-webfont.svg#robotobold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotobold_italic';
-    src: url('../fonts/roboto-bolditalic-webfont.eot');
-    src: url('../fonts/roboto-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-bolditalic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-bolditalic-webfont.woff') format('woff'),
-         url('../fonts/roboto-bolditalic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-bolditalic-webfont.svg#robotobold_italic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotoitalic';
-    src: url('../fonts/roboto-italic-webfont.eot');
-    src: url('../fonts/roboto-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-italic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-italic-webfont.woff') format('woff'),
-         url('../fonts/roboto-italic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-italic-webfont.svg#robotoitalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotolight';
-    src: url('../fonts/roboto-light-webfont.eot');
-    src: url('../fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-light-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-light-webfont.woff') format('woff'),
-         url('../fonts/roboto-light-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-light-webfont.svg#robotolight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotolight_italic';
-    src: url('../fonts/roboto-lightitalic-webfont.eot');
-    src: url('../fonts/roboto-lightitalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-lightitalic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-lightitalic-webfont.woff') format('woff'),
-         url('../fonts/roboto-lightitalic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-lightitalic-webfont.svg#robotolight_italic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotomedium';
-    src: url('../fonts/roboto-medium-webfont.eot');
-    src: url('../fonts/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-medium-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-medium-webfont.woff') format('woff'),
-         url('../fonts/roboto-medium-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-medium-webfont.svg#robotomedium') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotomedium_italic';
-    src: url('../fonts/roboto-mediumitalic-webfont.eot');
-    src: url('../fonts/roboto-mediumitalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-mediumitalic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-mediumitalic-webfont.woff') format('woff'),
-         url('../fonts/roboto-mediumitalic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-mediumitalic-webfont.svg#robotomedium_italic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotoregular';
-    src: url('../fonts/roboto-regular-webfont.eot');
-    src: url('../fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-regular-webfont.woff') format('woff'),
-         url('../fonts/roboto-regular-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-regular-webfont.svg#robotoregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotothin';
-    src: url('../fonts/roboto-thin-webfont.eot');
-    src: url('../fonts/roboto-thin-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-thin-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-thin-webfont.woff') format('woff'),
-         url('../fonts/roboto-thin-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-thin-webfont.svg#robotothin') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'robotothin_italic';
-    src: url('../fonts/roboto-thinitalic-webfont.eot');
-    src: url('../fonts/roboto-thinitalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/roboto-thinitalic-webfont.woff2') format('woff2'),
-         url('../fonts/roboto-thinitalic-webfont.woff') format('woff'),
-         url('../fonts/roboto-thinitalic-webfont.ttf') format('truetype'),
-         url('../fonts/roboto-thinitalic-webfont.svg#robotothin_italic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
 /* -- Etiquetas -- */
 /* --------------- */
 h1{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.65em;
 }
 h2{
 	color:#999;
-	font-family: 'robotomedium';
+	font-family: 'gotham-roundedmedium';
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
 h3{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
 h4{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
 h5{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
 h6{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
 p{
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 	font-size: 1em;
 	color: #666;
 }
 a{
 	font-size: 1em;
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 }
 a:visited { 
     color: #68075b;
@@ -207,13 +66,13 @@ a.active-trail:hover {
 	text-align: center;
 }
 .views-field-title a{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 16px;
 	color: #000;
 	text-decoration: none;
 }
 .views-field-field-fecha-de-publicacion{
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 	line-height: 1em;
 	font-size: 0.8em;
 	color:#666;
@@ -224,14 +83,14 @@ a.active-trail:hover {
 
 #encabezado .encabezado-a-1 .block {
     float: left;
-    font-family: 'robotolight';
+    font-family: 'gotham-roundedlight';
     font-size: 11px;
     width: 50%;
 }
 
 #encabezado h2{
 	color:#999;
-	font-family: 'robotomedium';
+	font-family: 'gotham-roundedmedium';
 	font-size: 1.2em;
 	line-height: 0.4em;
 }
@@ -442,7 +301,7 @@ list-style-type: none;
 	background-color: #ffffff;
     color: rgba(0,62,101,1);
     text-decoration: none;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
 }
 #menu-principal ul ul li a, #menu-principal ul.pure-menu-children li a {
     display: block;
@@ -564,7 +423,7 @@ list-style-type: none;
 	color: #666666;
 	text-decoration: underline;
 	padding: 0 0.5em;
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
     font-size: 11px;
 }
 #encabezado .encabezado-a-1 ul li:last-of-type a{
@@ -668,7 +527,7 @@ list-style-type: none;
  	display: none;
 	background: transparent;
     top: 33%;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     font-size: 45px;
     font-weight: bold;
     left: 115px;
@@ -718,7 +577,7 @@ list-style-type: none;
 
 #encabezado .form-item-search-block-form{
     color: #656565;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     font-size: 14px;
     margin-right: 8px;
 }
@@ -761,7 +620,7 @@ list-style-type: none;
 
 .view-enlaces-destacados .field-content:first-child{
     font-size: 20px;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     text-shadow: 1px 2px 2px #000;
     color: #fff;
     padding: 0 5px;
@@ -769,7 +628,7 @@ list-style-type: none;
 
 .view-enlaces-destacados .field-content:last-child{
     font-size: 25px;
-    font-family: 'robotobold';
+    font-family: 'gotham-roundedbold';
     text-shadow: 1px 2px 2px #000;
     color: #fff;
     padding: 0 5px;
@@ -832,7 +691,7 @@ list-style-type: none;
 	border-bottom: 1px solid;
     font-size: 1.2em;
     line-height: 1.5em;
-    font-family: 'robotolight';
+    font-family: 'gotham-roundedlight';
 }
 #posicion .region-content h2 {
 	height: initial;
@@ -841,7 +700,7 @@ list-style-type: none;
 #posicion .block-system h2{
 	border-bottom:1px solid rgb(212, 212, 212);
 	color: rgba(0,62,101,1);
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 1.2em;
     line-height: 1.3em;
 }
@@ -913,7 +772,7 @@ list-style-type: none;
 
 #block-views-exp-pagina-noticias-page fieldset legend a{
 	color: #ffffff;
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 14px;
 	text-decoration: none;
 }
@@ -938,7 +797,7 @@ list-style-type: none;
 
 #nodo-contenido-noticias h2,
 #nodo-contenido-marco-legal h2{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 16px;
 	color: #007fb2;
 }
@@ -951,7 +810,7 @@ list-style-type: none;
 #nodo-contenido-noticias h6,#nodo-contenido-noticias h6 a,
 #nodo-contenido-marco-legal h6,#nodo-contenido-marco-legal h6 a{
 	font-size: 12px;
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 	color: #b2b2b2;
 }
 
@@ -963,7 +822,7 @@ list-style-type: none;
 }
 
 #nodo-contenido-noticias .copete p{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-style: italic;
 	margin: 1em;
 }
@@ -1061,7 +920,7 @@ list-style-type: none;
 }
 #nodo-contenido-noticias table thead{
 	color: #000000;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 16px;
 }
 
@@ -1071,7 +930,7 @@ list-style-type: none;
 
 #nodo-contenido-noticias table tbody tr td{
 	color: #777777;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 14px;
 	padding: 5px;
 }
@@ -1121,7 +980,7 @@ list-style-type: none;
 }
 
 .view-eventos .date-heading h3{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 19px;
 }
 
@@ -1156,7 +1015,7 @@ list-style-type: none;
 .view-eventos .calendar-calendar .today{
 	background: #0072A3 !important;
 	color: #fff !important;
-	font-family: 'robotobold' !important;
+	font-family: 'gotham-roundedbold' !important;
 }
 .view-eventos .calendar-calendar td div.month{
 	padding: 3px 0 3px 0;
@@ -1166,7 +1025,7 @@ list-style-type: none;
 /* --------------------------------------------- */
 
 #nodo-contenido-eventos h2{
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	color: #007fb2;
 }
 
@@ -1230,7 +1089,7 @@ list-style-type: none;
 
 #nodo-contenido-eventos .datos h2{
 	color: #999999;
-	font-family: 'robotomedium';
+	font-family: 'gotham-roundedmedium';
 	font-size: 14px;
 	margin-bottom: 0px;
 }
@@ -1249,14 +1108,14 @@ list-style-type: none;
 
 #nodo-contenido-eventos .field-label{
 	color: #999999;
-	font-family: 'robotomedium';
+	font-family: 'gotham-roundedmedium';
 	font-size: 14px;
 	font-weight: normal;
 }
 
 #nodo-contenido-eventos .field-items {
 	color: #666;
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 	font-size: 14px;
 	text-decoration: none;
 	margin-bottom: 14px;
@@ -1265,7 +1124,7 @@ list-style-type: none;
 #nodo-contenido-eventos .field-items a{
 	color: #666;
 	cursor: default;
-	font-family: 'robotolight';
+	font-family: 'gotham-roundedlight';
 	font-size: 14px;
 	text-decoration: none;
 	margin-bottom: 14px;
@@ -1285,7 +1144,7 @@ list-style-type: none;
 #nodo-contenido-eventos .relacionados .field-items a{
 	color: rgba(0,62,101,1);
 	cursor: pointer;
-	font-family: 'robotomedium';
+	font-family: 'gotham-roundedmedium';
 	font-size: 14px;
 	text-decoration: underline;
 }
@@ -1313,7 +1172,7 @@ list-style-type: none;
 .view .date-nav-wrapper .date-heading h3 {
     padding-top: 0.1em;
     color: rgba(0,62,101,1) !important;
-    font-family: 'robotoregular' !important;
+    font-family: 'gotham-roundedbook' !important;
     font-size: 1.2em !important;
     text-align: center;
     line-height: 1.05em !important;
@@ -1380,7 +1239,7 @@ footer .pie-b {
 
 #pie h2 {
 	color: #fff;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size:14px;
 	border-bottom: 1px solid ;
 }
@@ -1388,7 +1247,7 @@ footer .pie-b {
 	padding: 10px;
 }
 #pie .region div, #pie .region a {
-	font-family: 'robotoregular';
+	font-family: 'gotham-roundedbook';
 	font-size: 11px;
 	color:#fff;
 }
@@ -1412,7 +1271,7 @@ footer .pie-b {
     padding: 1em 0;
     text-align: center;
     color: #fff;
-    font-family: 'robotolight';
+    font-family: 'gotham-roundedlight';
     padding-right: 15%;
 }
 
@@ -1475,7 +1334,7 @@ a.created_by {
 }
 
 #posicion .view-directorio-funcionarios .fieldset-wrapper div.cargo{
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 1.3em;
 	color: #444444;
 	padding: 10px 15px;
@@ -1483,7 +1342,7 @@ a.created_by {
 
 .label{
 	color: #999999;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 12px;
 	text-align: right;
 	padding-bottom: 5px;
@@ -1492,7 +1351,7 @@ a.created_by {
 
 .valor{
 	color: #878787;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 14px;
 	text-align: left;
 	padding-bottom: 5px;
@@ -1574,7 +1433,7 @@ a.created_by {
 
 #posicion fieldset legend a{
 	color: #ffffff;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 14px;
 	text-decoration: none;
 }
@@ -1587,7 +1446,7 @@ a.created_by {
 
 #posicion table thead{
 	color: #000000;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 16px;
 }
 
@@ -1597,7 +1456,7 @@ a.created_by {
 
 #posicion table tbody tr td{
 	color: #777777;
-	font-family: 'robotoregular'; 
+	font-family: 'gotham-roundedbook'; 
 	font-size: 14px;
 }
 
@@ -1628,14 +1487,14 @@ a.created_by {
     color: #999 !important;
     font-size: 1.2em !important;
     line-height: 1.2em !important;
-    font-family: 'robotolight' !important;
+    font-family: 'gotham-roundedlight' !important;
     text-align: left;
 }
 
 .region-posicion-e-3 .block h2{
     border-bottom: 1px solid rgba(0,62,101,1);
     color: rgba(0,62,101,1) !important;
-    font-family: 'robotoregular' !important;
+    font-family: 'gotham-roundedbook' !important;
 	font-size: 1.2em !important;
     text-align: center;
     line-height: 1.05em !important;
@@ -1655,7 +1514,7 @@ a.created_by {
 form#search-form .form-wrapper {
     padding: 1em;
     margin: 0 auto;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
 }
 
 form#search-form .form-wrapper input {
@@ -1731,7 +1590,7 @@ form#search-form .form-wrapper input[type="submit"] {
 .container-top .body-value {
     color: #fff;
     font-size: 0.9em;
-    font-family: 'robotolight';
+    font-family: 'gotham-roundedlight';
     line-height: 1em;}
 
 .view-videos .views-column:hover .views-field-nothing {
@@ -1768,11 +1627,11 @@ div#nodo-contenido-perfil .img_perfil .field-item {
     text-align: center;
 }
 div#nodo-contenido-perfil .field-items {
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     text-align: justify;
 }
 div#nodo-contenido-perfil .field-label {
-    font-family: 'robotobold';
+    font-family: 'gotham-roundedbold';
     font-size: 1em;
 }
 .view-perfiles .views-column {
@@ -1833,7 +1692,7 @@ div#nodo-contenido-perfil .field-label {
 .view-perfiles .body_perfil span {
     display: block;
     color: #fff;
-    font-family: 'robotolight';
+    font-family: 'gotham-roundedlight';
     font-size: 14px;
     line-height: 14px;
 }
@@ -1843,7 +1702,7 @@ div#nodo-contenido-perfil .field-label {
 
 .body_perfil span.title a {
     color: #fff;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     text-decoration: none;
     font-size: 20px;
 }
@@ -2031,13 +1890,13 @@ ul.primary {
 }
 #encabezado h2 {
     color: #999;
-    font-family: 'robotomedium';
+    font-family: 'gotham-roundedmedium';
     font-size: 1.2em;
     line-height: 0.4em;
     display: none;
 }
 #encabezado h1 {
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     font-size: 1em;
 }
 .encabezado-a-1 {
@@ -2060,7 +1919,7 @@ ol.site-map-menu { counter-reset: item }
     display: none;
     background: transparent;
     top: 33%;
-    font-family: 'robotoregular';
+    font-family: 'gotham-roundedbook';
     font-size: 45px;
     font-weight: bold;
     left: 115px;
