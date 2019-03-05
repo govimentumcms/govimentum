@@ -710,11 +710,16 @@ list-style-type: none;
 }
 
 #block-views-otras-noticias-block-1 > h2:after{
-	content: "\00A0";
+	content: "";
+	border-bottom: 1px solid #999999;
+	display: block;
+	visibility: visible;
+
 }
 
 #block-views-otras-noticias-block-1 h2{
 	margin-left: -10px;
+	visibility: hidden;
 }
 
 #block-views-noticias-block-1 .views-field-view-node, #block-views-otras-noticias-block-1 .view-footer{

@@ -76,7 +76,7 @@
 
         <div class="encabezado-c-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1 pure-u-xl-1" role="navigation" aria-label="Menu">
 
-            <a href="#" id="toggles" class="menu-toggle custom-toggle">&nbsp;<hr class="bar">
+            <a href="#" id="toggles" class="menu-toggle custom-toggle" title="Expandir menu" aria-label=" expandir menu"><hr class="bar">
                 <hr class="bar"></a>
 
                 <div id="menu-principal" class="pure-menu pure-menu-horizontal custom-can-transform menu-transform">
@@ -120,17 +120,17 @@
 
             <section class="posicion-c pure-g">
                 <?php if (!empty($page['posicion_c_1'])): ?>
-                    <div class="posicion-c-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1 pure-u-xl-1-3" >
+                    <div class="posicion-c-1 pure-u-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3" >
                         <?php print render($page['posicion_c_1']); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($page['posicion_c_2'])): ?>
-                    <div class="posicion-c-2 pure-u-sm-1 pure-u-md-12-24 pure-u-lg-12-24 pure-u-xl-1-3">
+                    <div class="posicion-c-2 pure-u-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3">
                         <?php print render($page['posicion_c_2']); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($page['posicion_c_3'])): ?>
-                    <div class="posicion-c-3 pure-u-sm-1 pure-u-md-12-24 pure-u-lg-12-24 pure-u-xl-1-3">
+                    <div class="posicion-c-3 pure-u-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3">
                         <?php print render($page['posicion_c_3']); ?>
                     </div>
                 <?php endif; ?>
@@ -138,17 +138,17 @@
 
             <section class="posicion-d pure-g">
                 <?php if (!empty($page['posicion_d_1'])): ?>
-                    <div class="posicion-d-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1 pure-u-xl-1-3" >
+                    <div class="posicion-d-1 pure-u-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3" >
                         <?php print render($page['posicion_d_1']); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($page['posicion_d_2'])): ?>
-                    <div class="posicion-d-2 pure-u-sm-1 pure-u-md-12-24 pure-u-lg-12-24 pure-u-xl-1-3">
+                    <div class="posicion-d-2 pure-u-1 pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3">
                         <?php print render($page['posicion_d_2']); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (!empty($page['posicion_d_3'])): ?>
-                    <div class="posicion-d-3 pure-u-sm-1 pure-u-md-12-24 pure-u-lg-12-24 pure-u-xl-1-3">
+                    <div class="posicion-d-3 pure-1-u pure-u-sm-1 pure-u-md-1 pure-u-lg-1-3 pure-u-xl-1-3">
                         <?php print render($page['posicion_d_3']); ?>
                     </div>
                 <?php endif; ?>
