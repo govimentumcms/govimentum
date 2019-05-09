@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_encabezado_institucional.features.content.inc
@@ -30,7 +31,7 @@ function govi_encabezado_institucional_content_defaults() {
           'filemime' => 'image/png',
           'filesize' => 18358,
           'status' => 1,
-          'uuid' => 'a4e15bb9-3a1a-4108-88de-2e0049656348',
+          'uuid' => 'fbda3a59-71a3-4833-ab90-cd6a711578a0',
           'rdf_mapping' => array(),
           'alt' => 'Logo Bogotá mejor para todos',
           'title' => 'Logo Bogotá mejor para todos',
@@ -71,7 +72,7 @@ function govi_encabezado_institucional_content_defaults() {
           'filemime' => 'image/png',
           'filesize' => 18174,
           'status' => 1,
-          'uuid' => 'b7886405-7e71-4bbd-9bb1-a8c959e48769',
+          'uuid' => '4600f9d9-8e07-448a-9118-f449b36dc72d',
           'rdf_mapping' => array(),
           'alt' => 'Logo República de Colombia',
           'title' => 'Logo República de Colombia',

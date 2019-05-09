@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_noticias.default_field_validation_rules.inc

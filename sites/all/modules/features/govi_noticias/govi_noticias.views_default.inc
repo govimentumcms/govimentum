@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_noticias.views_default.inc
@@ -33,7 +34,7 @@ function govi_noticias_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Content: Multimedia */
+  /* Field: Content: Imagenes destacadas */
   $handler->display->display_options['fields']['field_multimedia_noticia']['id'] = 'field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['table'] = 'field_data_field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['field'] = 'field_multimedia_noticia';
@@ -67,7 +68,7 @@ function govi_noticias_views_default_views() {
     'multiple_to' => '',
     'show_remaining_days' => 1,
   );
-  /* Field: Content: Copete */
+  /* Field: Content: Texto lead */
   $handler->display->display_options['fields']['field_copete']['id'] = 'field_copete';
   $handler->display->display_options['fields']['field_copete']['table'] = 'field_data_field_copete';
   $handler->display->display_options['fields']['field_copete']['field'] = 'field_copete';
@@ -159,7 +160,7 @@ function govi_noticias_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Content: Tags (field_noticia_tags) */
+  /* Relationship: Content: Palabras clave o etiquetas (field_noticia_tags) */
   $handler->display->display_options['relationships']['field_noticia_tags_tid']['id'] = 'field_noticia_tags_tid';
   $handler->display->display_options['relationships']['field_noticia_tags_tid']['table'] = 'field_data_field_noticia_tags';
   $handler->display->display_options['relationships']['field_noticia_tags_tid']['field'] = 'field_noticia_tags_tid';
@@ -230,7 +231,7 @@ function govi_noticias_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = '         ';
+  $handler->display->display_options['title'] = 'Otras Noticias  ';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -247,7 +248,7 @@ function govi_noticias_views_default_views() {
   $handler->display->display_options['footer']['area']['field'] = 'area';
   $handler->display->display_options['footer']['area']['content'] = '<a href="/?q=noticias">Ver más noticias</a>';
   $handler->display->display_options['footer']['area']['format'] = 'full_html';
-  /* Field: Content: Multimedia */
+  /* Field: Content: Imagenes destacadas */
   $handler->display->display_options['fields']['field_multimedia_noticia']['id'] = 'field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['table'] = 'field_data_field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['field'] = 'field_multimedia_noticia';
@@ -281,7 +282,7 @@ function govi_noticias_views_default_views() {
     'multiple_to' => '',
     'show_remaining_days' => 0,
   );
-  /* Field: Content: Copete */
+  /* Field: Content: Texto lead */
   $handler->display->display_options['fields']['field_copete']['id'] = 'field_copete';
   $handler->display->display_options['fields']['field_copete']['table'] = 'field_data_field_copete';
   $handler->display->display_options['fields']['field_copete']['field'] = 'field_copete';
@@ -323,7 +324,7 @@ function govi_noticias_views_default_views() {
   $handler->display->display_options['block_description'] = 'Otras noticias';
   $translatables['otras_noticias'] = array(
     t('Master'),
-    t('         '),
+    t('Otras Noticias  '),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -378,7 +379,7 @@ function govi_noticias_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['content'] = '<div class="messages error">
 <h2 class="element-invisible">Error message</h2>
 No se encontró ningún resultado.</div>';
-  /* Field: Content: Multimedia */
+  /* Field: Content: Imagenes destacadas */
   $handler->display->display_options['fields']['field_multimedia_noticia']['id'] = 'field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['table'] = 'field_data_field_multimedia_noticia';
   $handler->display->display_options['fields']['field_multimedia_noticia']['field'] = 'field_multimedia_noticia';
@@ -412,7 +413,7 @@ No se encontró ningún resultado.</div>';
     'multiple_to' => '',
     'show_remaining_days' => 0,
   );
-  /* Field: Content: Copete */
+  /* Field: Content: Texto lead */
   $handler->display->display_options['fields']['field_copete']['id'] = 'field_copete';
   $handler->display->display_options['fields']['field_copete']['table'] = 'field_data_field_copete';
   $handler->display->display_options['fields']['field_copete']['field'] = 'field_copete';

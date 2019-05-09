@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_informacion_interes.features.menu_links.inc
@@ -15,7 +16,7 @@ function govi_informacion_interes_menu_default_menu_links() {
     'menu_name' => 'menu-menu-informacion-interes',
     'link_path' => 'calendario/month',
     'router_path' => 'calendario/month',
-    'link_title' => 'Calendario de Actividades',
+    'link_title' => 'Calendario de actividades',
     'options' => array(
       'cami' => array(
         'pages' => 'calendario/month
@@ -70,39 +71,6 @@ transparencia/informacion-interes/convocatoria
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -49,
-    'customized' => 1,
-  );
-  // Exported menu link: menu-menu-informacion-interes_estudios-investigaciones-y-oras-publicaciones:transparencia/informacion-interes/publicaciones.
-  $menu_links['menu-menu-informacion-interes_estudios-investigaciones-y-oras-publicaciones:transparencia/informacion-interes/publicaciones'] = array(
-    'menu_name' => 'menu-menu-informacion-interes',
-    'link_path' => 'transparencia/informacion-interes/publicaciones',
-    'router_path' => 'transparencia',
-    'link_title' => 'Estudios, investigaciones y oras publicaciones',
-    'options' => array(
-      'cami' => array(
-        'pages' => 'transparencia/informacion-interes/publicaciones
-transparencia/informacion-interes/publicaciones/*
-transparencia/informacion-interes/publicacion/estudios/*
-transparencia/informacion-interes/publicacion/investigaciones/*
-transparencia/informacion-interes/publicacion/otras-publicaciones/*
-',
-      ),
-      'attributes' => array(),
-      'item_attributes' => array(
-        'data-inner-width' => '',
-        'data-inner-height' => '',
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'menu-menu-informacion-interes_estudios-investigaciones-y-oras-publicaciones:transparencia/informacion-interes/publicaciones',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -50,
     'customized' => 1,
   );
   // Exported menu link: menu-menu-informacion-interes_glosario:transparencia/informacion-interes/glosario.
@@ -228,9 +196,8 @@ transparencia/informacion-interes/faqs/*',
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Calendario de Actividades');
+  t('Calendario de actividades');
   t('Convocatorias');
-  t('Estudios, investigaciones y oras publicaciones');
   t('Glosario');
   t('Información adicional');
   t('Noticias');

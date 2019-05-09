@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_encabezado_institucional.features.menu_links.inc
@@ -104,7 +105,7 @@ calendario/month/*',
     'expanded' => 1,
     'weight' => -45,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_control:transparencia/control.
   $menu_links['main-menu_control:transparencia/control'] = array(
@@ -133,7 +134,7 @@ calendario/month/*',
     'expanded' => 1,
     'weight' => -44,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_convocatorias:transparencia/informacion-interes/convocatorias.
   $menu_links['main-menu_convocatorias:transparencia/informacion-interes/convocatorias'] = array(
@@ -378,6 +379,39 @@ transparencia/informacion-interes/convocatoria',
     'customized' => 1,
     'parent_identifier' => 'main-menu_control:transparencia/control',
   );
+  // Exported menu link: main-menu_entidad:<front>.
+  $menu_links['main-menu_entidad:<front>'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => '<front>',
+    'router_path' => '',
+    'link_title' => 'Entidad',
+    'options' => array(
+      'cami' => array(
+        'pages' => '',
+      ),
+      'attributes' => array(
+        'title' => 'transparencia',
+        'class' => array(
+          0 => 'icon-circle_ok',
+        ),
+      ),
+      'item_attributes' => array(
+        'data-inner-width' => '',
+        'data-inner-height' => '',
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'identifier' => 'main-menu_entidad:<front>',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 1,
+    'has_children' => 1,
+    'expanded' => 1,
+    'weight' => -49,
+    'customized' => 1,
+  );
   // Exported menu link: main-menu_estados-financieros:transparencia/presupuesto/estados-financieros.
   $menu_links['main-menu_estados-financieros:transparencia/presupuesto/estados-financieros'] = array(
     'menu_name' => 'main-menu',
@@ -438,41 +472,7 @@ transparencia/informacion-interes/convocatoria',
     'expanded' => 1,
     'weight' => -49,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
-  );
-  
-    // Exported menu link: main-menu_eventos:calendario.
-  $menu_links['main-menu_eventos:calendario'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'calendario',
-    'router_path' => 'calendario',
-    'link_title' => 'Eventos',
-    'options' => array(
-      'cami' => array(
-        'pages' => '',
-      ),
-      'attributes' => array(
-        'title' => 'eventos',
-        'class' => array(
-          0 => 'icon-calendar',
-        ),
-      ),
-      'item_attributes' => array(
-        'data-inner-width' => '',
-        'data-inner-height' => '',
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'main-menu_eventos:calendario',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -47, 
-    'customized' => 1,
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_funciones-y-deberes:transparencia/organizacion.
   $menu_links['main-menu_funciones-y-deberes:transparencia/organizacion'] = array(
@@ -657,7 +657,7 @@ transparencia/informacion-interes/*',
     'expanded' => 1,
     'weight' => -42,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_informacin-para-poblacin-vulnerable:transparencia/control/informacion-poblacion-vulnerable.
   $menu_links['main-menu_informacin-para-poblacin-vulnerable:transparencia/control/informacion-poblacion-vulnerable'] = array(
@@ -843,7 +843,7 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'expanded' => 1,
     'weight' => -43,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_lineamientos:transparencia/marco-legal/lineamientos.
   $menu_links['main-menu_lineamientos:transparencia/marco-legal/lineamientos'] = array(
@@ -876,7 +876,6 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'customized' => 1,
     'parent_identifier' => 'main-menu_marco-legal:transparencia/marco-legal',
   );
-
   // Exported menu link: main-menu_manual-de-contrataciones:transparencia/contratacion/manual_contrataciones.
   $menu_links['main-menu_manual-de-contrataciones:transparencia/contratacion/manual_contrataciones'] = array(
     'menu_name' => 'main-menu',
@@ -937,13 +936,13 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'expanded' => 1,
     'weight' => -48,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
-  // Exported menu link: main-menu_mecanismos-de-contacto:<front>.
-  $menu_links['main-menu_mecanismos-de-contacto:<front>'] = array(
+  // Exported menu link: main-menu_mecanismos-de-contacto:transparencia/mecanismos-de-contacto/sede-principal.
+  $menu_links['main-menu_mecanismos-de-contacto:transparencia/mecanismos-de-contacto/sede-principal'] = array(
     'menu_name' => 'main-menu',
-    'link_path' => 'transparencia/atencion-ciudadano/sede-principal',
-    'router_path' => '',
+    'link_path' => 'transparencia/mecanismos-de-contacto/sede-principal',
+    'router_path' => 'transparencia/mecanismos-de-contacto/sede-principal',
     'link_title' => 'Mecanismos de contacto',
     'options' => array(
       'cami' => array(
@@ -957,16 +956,16 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
         'class' => '',
         'style' => '',
       ),
-      'identifier' => 'main-menu_mecanismos-de-contacto:<front>',
+      'identifier' => 'main-menu_mecanismos-de-contacto:transparencia/mecanismos-de-contacto/sede-principal',
     ),
     'module' => 'menu',
     'hidden' => 0,
-    'external' => 1,
+    'external' => 0,
     'has_children' => 1,
     'expanded' => 1,
     'weight' => -50,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_metas-objetivos-e-indicadores:transparencia/planeacion/metas-objetivos-indicadores.
   $menu_links['main-menu_metas-objetivos-e-indicadores:transparencia/planeacion/metas-objetivos-indicadores'] = array(
@@ -1094,9 +1093,7 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'expanded' => 0,
     'weight' => -48,
     'customized' => 1,
-	
   );
- 
   // Exported menu link: main-menu_ofertas-de-empleo:transparencia/organizacion.
   $menu_links['main-menu_ofertas-de-empleo:transparencia/organizacion'] = array(
     'menu_name' => 'main-menu',
@@ -1221,6 +1218,37 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'customized' => 1,
     'parent_identifier' => 'main-menu_contratacin:<front>',
   );
+  // Exported menu link: main-menu_plan-de-gasto-pblico:transparencia/planeacion/plan-de-gasto-publico.
+  $menu_links['main-menu_plan-de-gasto-pblico:transparencia/planeacion/plan-de-gasto-publico'] = array(
+    'menu_name' => 'main-menu',
+    'link_path' => 'transparencia/planeacion/plan-de-gasto-publico',
+    'router_path' => 'transparencia',
+    'link_title' => 'Plan de Gasto Público',
+    'options' => array(
+      'cami' => array(
+        'pages' => '',
+      ),
+      'attributes' => array(
+        'title' => 'Plan de Gasto Público',
+      ),
+      'item_attributes' => array(
+        'data-inner-width' => '',
+        'data-inner-height' => '',
+        'id' => '',
+        'class' => '',
+        'style' => '',
+      ),
+      'identifier' => 'main-menu_plan-de-gasto-pblico:transparencia/planeacion/plan-de-gasto-publico',
+    ),
+    'module' => 'menu',
+    'hidden' => 0,
+    'external' => 0,
+    'has_children' => 0,
+    'expanded' => 0,
+    'weight' => -49,
+    'customized' => 1,
+    'parent_identifier' => 'main-menu_planeacin:transparencia/planeacion',
+  );
   // Exported menu link: main-menu_planeacin:transparencia/planeacion.
   $menu_links['main-menu_planeacin:transparencia/planeacion'] = array(
     'menu_name' => 'main-menu',
@@ -1250,7 +1278,7 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'expanded' => 1,
     'weight' => -47,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_planes-de-mejoramiento:transparencia/control/planes-mejoramiento.
   $menu_links['main-menu_planes-de-mejoramiento:transparencia/control/planes-mejoramiento'] = array(
@@ -1281,8 +1309,8 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'customized' => 1,
     'parent_identifier' => 'main-menu_control:transparencia/control',
   );
-  // Exported menu link: main-menu_planes:transparencia/planeacion/planes.
-  $menu_links['main-menu_planes:transparencia/planeacion/planes'] = array(
+  // Exported menu link: main-menu_polticas-lineamientos-y-manuales:transparencia/planeacion/planes.
+  $menu_links['main-menu_polticas-lineamientos-y-manuales:transparencia/planeacion/planes'] = array(
     'menu_name' => 'main-menu',
     'link_path' => 'transparencia/planeacion/planes',
     'router_path' => 'transparencia',
@@ -1301,7 +1329,7 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
         'class' => '',
         'style' => '',
       ),
-      'identifier' => 'main-menu_planes:transparencia/planeacion/planes',
+      'identifier' => 'main-menu_polticas-lineamientos-y-manuales:transparencia/planeacion/planes',
     ),
     'module' => 'menu',
     'hidden' => 0,
@@ -1312,38 +1340,6 @@ transparencia/instrumentos-gestion-informacion-publica/Informe-pqr-denuncias-sol
     'customized' => 1,
     'parent_identifier' => 'main-menu_planeacin:transparencia/planeacion',
   );
-  // Exported menu link: main-menu_plan-de-gasto-publico:transparencia/planeacion/plan-de-gasto-publico.
-  $menu_links['main-menu_planes:transparencia/planeacion/plan-de-gasto-publico'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'transparencia/planeacion/plan-de-gasto-publico',
-    'router_path' => 'transparencia',
-    'link_title' => 'Plan de Gasto Público',
-    'options' => array(
-      'cami' => array(
-        'pages' => '',
-      ),
-      'attributes' => array(
-        'title' => 'Plan de Gasto Público',
-      ),
-      'item_attributes' => array(
-        'data-inner-width' => '',
-        'data-inner-height' => '',
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'main-menu_plan-de-gasto-publico:transparencia/planeacion/plan-de-gasto-publico',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -49,
-    'customized' => 1,
-    'parent_identifier' => 'main-menu_planeacin:transparencia/planeacion',
-  );
- 
   // Exported menu link: main-menu_preguntas-frecuentes:transparencia/informacion-interes/faqs.
   $menu_links['main-menu_preguntas-frecuentes:transparencia/informacion-interes/faqs'] = array(
     'menu_name' => 'main-menu',
@@ -1434,7 +1430,7 @@ transparencia/informacion-interes/faqs/*',
     'expanded' => 1,
     'weight' => -46,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_procesos-y-procedimientos:transparencia/organizacion.
   $menu_links['main-menu_procesos-y-procedimientos:transparencia/organizacion'] = array(
@@ -1558,39 +1554,6 @@ transparencia/informacion-interes/faqs/*',
     'customized' => 1,
     'parent_identifier' => 'main-menu_control:transparencia/control',
   );
-  // Exported menu link: main-menu_transparencia:<front>.
-  $menu_links['main-menu_transparencia:<front>'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => '<front>',
-    'router_path' => '',
-    'link_title' => 'Entidad',
-    'options' => array(
-      'cami' => array(
-        'pages' => '',
-      ),
-      'attributes' => array(
-        'title' => 'transparencia',
-        'class' => array(
-          0 => 'icon-circle_ok',
-        ),
-      ),
-      'item_attributes' => array(
-        'data-inner-width' => '',
-        'data-inner-height' => '',
-        'id' => '',
-        'class' => '',
-        'style' => '',
-      ),
-      'identifier' => 'main-menu_transparencia:<front>',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 1,
-    'has_children' => 1,
-    'expanded' => 1,
-    'weight' => -49,
-    'customized' => 1,
-  );
   // Exported menu link: main-menu_trmites-y-servicios:transparencia/tramites-servicios.
   $menu_links['main-menu_trmites-y-servicios:transparencia/tramites-servicios'] = array(
     'menu_name' => 'main-menu',
@@ -1620,7 +1583,7 @@ transparencia/informacion-interes/faqs/*',
     'expanded' => 0,
     'weight' => -41,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_transparencia:<front>',
+    'parent_identifier' => 'main-menu_entidad:<front>',
   );
   // Exported menu link: main-menu_visin:transparencia/organizacion.
   $menu_links['main-menu_visin:transparencia/organizacion'] = array(
@@ -2025,9 +1988,9 @@ transparencia/tramites-servicios/*',
   t('Ejecución de contratos');
   t('Ejecución presupuestal');
   t('Entes de control, vigilancia y mecamismos de supervición');
+  t('Entidad');
   t('Estados financieros');
   t('Estructura orgánica y talento humano');
-  t('Eventos');
   t('Funciones y deberes');
   t('Gestión documental');
   t('Glosario');
@@ -2042,7 +2005,6 @@ transparencia/tramites-servicios/*',
   t('Instrumentos de gestión de información');
   t('Instrumentos de gestión de información pública');
   t('Lineamientos');
-  t('Localización física, sucursales o regionales');
   t('Manual de contrataciones');
   t('Marco Legal');
   t('Mecanismos de contacto');
@@ -2050,15 +2012,14 @@ transparencia/tramites-servicios/*',
   t('Misión');
   t('Normatividad');
   t('Noticias');
-  t('Notificaciones Judiciales');
   t('Ofertas de empleo');
   t('Organigrama');
   t('Participación Ciudadana');
   t('Plan anual de adquisiciones');
+  t('Plan de Gasto Público');
   t('Planeación');
-  t('Planes');
   t('Planes de mejoramiento');
-  t('Políticas de seguridad de la información y protección de datos pesonales');
+  t('Políticas, lineamientos y manuales');
   t('Preguntas frecuentes');
   t('Presupuesto');
   t('Presupuesto general');
@@ -2066,7 +2027,6 @@ transparencia/tramites-servicios/*',
   t('Programas y Proyectos');
   t('Relacionados con la Información');
   t('Reportes de control interno');
-  t('Transparencia');
   t('Trámites y Servicios');
   t('Visión');
 

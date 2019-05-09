@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_noticias.features.inc
@@ -113,7 +114,7 @@ function govi_noticias_node_info() {
       'base' => 'node_content',
       'description' => t('Utilice este tipo de contenido para gestionar el contenido de las noticias'),
       'has_title' => '1',
-      'title_label' => t('Noticias'),
+      'title_label' => t('Título'),
       'help' => '',
     ),
   );

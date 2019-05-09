@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_mecanismos_contacto.context.inc
@@ -27,8 +28,8 @@ function govi_mecanismos_contacto_context_default_contexts() {
     ),
     'path' => array(
       'values' => array(
-        'transparencia/atencion-ciudadano' => 'transparencia/atencion-ciudadano',
-        'transparencia/atencion-ciudadano/*' => 'transparencia/atencion-ciudadano/*',
+        'transparencia/mecanismos-de-contacto' => 'transparencia/mecanismos-de-contacto',
+        'transparencia/mecanismos-de-contacto/*' => 'transparencia/mecanismos-de-contacto/*',
       ),
     ),
   );

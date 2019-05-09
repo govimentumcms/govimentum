@@ -16,7 +16,7 @@ $anchor_target = $fields['field_enlace_destacado']->handler->field_info['setting
 $css = "";
 $css .= ".enlace-destacado-bg-" . $file_id . "{";
 $css .= "  background-image: url('" . $file_uri ."');";
-$css .= "  background-repeat: no-repeat;";
+$css .= "  background-repeat: repeat-y;";
 $css .= "}";
 
 drupal_add_css($css, 'inline');

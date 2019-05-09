@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_mecanismos_contacto.features.webform.inc
@@ -100,7 +101,7 @@ $webforms = array();
     'progressbar_page_number' => 0,
     'progressbar_percent' => 0,
     'progressbar_pagebreak_labels' => 1,
-    'progressbar_include_confirmation' => 1,
+    'progressbar_include_confirmation' => 0,
     'progressbar_label_first' => 'Start',
     'progressbar_label_confirmation' => 'Complete',
     'preview' => 0,
@@ -323,7 +324,7 @@ Utilice solamente el formato corto de correo electrónico: nombre@correo.com',
   'print_mail_display_comment' => 0,
   'print_mail_display_urllist' => 1,
   'webform_features_author' => '',
-  'webform_features_revision_author' => 'admin',
+  'webform_features_revision_author' => 'root',
 );
 return $webforms;
 }

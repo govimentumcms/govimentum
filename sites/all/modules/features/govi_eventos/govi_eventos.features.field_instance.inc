@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_eventos.features.field_instance.inc
@@ -564,6 +565,7 @@ function govi_eventos_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'colorbox_node_classes' => '',
           'colorbox_node_height' => 600,
           'colorbox_node_link' => FALSE,
@@ -582,7 +584,7 @@ function govi_eventos_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_antecedentes_evento',
-    'label' => 'Antecedentes',
+    'label' => 'Contenidos relacionados',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -665,7 +667,7 @@ function govi_eventos_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_boleteria_evento',
-    'label' => 'boleteria',
+    'label' => 'Boletería',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1016,7 +1018,7 @@ function govi_eventos_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_multimedia_evento',
-    'label' => 'Multimedia',
+    'label' => 'Imagenes destacadas',
     'required' => 0,
     'settings' => array(
       'alt_field' => 1,
@@ -1064,7 +1066,7 @@ function govi_eventos_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_palabras_claves_evento',
-    'label' => 'Palabras Claves',
+    'label' => 'Palabras Clave',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1130,10 +1132,11 @@ function govi_eventos_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Antecedentes');
   t('Archivos Adjuntos');
   t('Body');
+  t('Boletería');
   t('Comment');
+  t('Contenidos relacionados');
   t('Date');
   t('Describe Event status');
   t('Descripción');
@@ -1145,17 +1148,16 @@ function govi_eventos_field_default_field_instances() {
   t('Fecha');
   t('Frecuencia');
   t('Image');
+  t('Imagenes destacadas');
   t('Información Contacto');
   t('Inscripción');
   t('Lugar');
-  t('Multimedia');
-  t('Palabras Claves');
+  t('Palabras Clave');
   t('Seleccione la fecha del evento.');
   t('Select the start and end dates for this event.');
   t('Suba una imagen para acompañar este artículo.');
   t('Tags');
   t('Video');
-  t('boleteria');
   t('digite la url del video.');
 
   return $field_instances;

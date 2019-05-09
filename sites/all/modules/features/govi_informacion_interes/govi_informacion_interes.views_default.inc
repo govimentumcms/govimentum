@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_informacion_interes.views_default.inc
@@ -738,7 +739,7 @@ Integer a erat.'),
   $handler->display->display_options['path'] = 'transparencia/informacion-interes/faqs';
   $translatables['faqs'] = array(
     t('Master'),
-    t('Preguntas Frecuentes'),
+    t('2.4 Preguntas y respuestas frecuentes'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -872,7 +873,7 @@ Integer a erat.'),
   $handler->display->display_options['path'] = 'transparencia/informacion-interes/glosario';
   $translatables['glosario'] = array(
     t('Master'),
-    t('Glosario'),
+    t('2.5 Glosario'),
     t('more'),
     t('Apply'),
     t('Reset'),

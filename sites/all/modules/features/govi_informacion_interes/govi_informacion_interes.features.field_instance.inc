@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_informacion_interes.features.field_instance.inc
@@ -115,7 +116,7 @@ function govi_informacion_interes_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_convocatoria_descripcion',
     'label' => 'Descripcion',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -271,7 +272,7 @@ function govi_informacion_interes_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_convocatoria_objetivos',
     'label' => 'Objetivos',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,

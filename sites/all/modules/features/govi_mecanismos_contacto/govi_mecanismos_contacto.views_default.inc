@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_mecanismos_contacto.views_default.inc
@@ -439,8 +440,8 @@ function govi_mecanismos_contacto_views_default_views() {
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['value'] = '1';
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
+  /* Display: Pie de página */
+  $handler = $view->new_display('block', 'Pie de página', 'block');
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Dirección */
@@ -490,8 +491,10 @@ function govi_mecanismos_contacto_views_default_views() {
   $handler->display->display_options['fields']['field_atencion_codigo_postal']['field'] = 'field_atencion_codigo_postal';
   $handler->display->display_options['block_description'] = 'Pie Información de la Entidad';
 
-  /* Display: Localización fisica, sucursales, regionales */
-  $handler = $view->new_display('page', 'Localización fisica, sucursales, regionales', 'page_1');
+  /* Display: Localización fisíca, sucursales o regionales */
+  $handler = $view->new_display('page', 'Localización fisíca, sucursales o regionales', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Localización fisíca, sucursales o regionales';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -588,10 +591,10 @@ function govi_mecanismos_contacto_views_default_views() {
     'mecanismos_atencion_ciudadano' => 'mecanismos_atencion_ciudadano',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['path'] = 'transparencia/atencion-ciudadano/sedes';
+  $handler->display->display_options['path'] = 'transparencia/mecanismos-de-contacto/sucursales';
 
-  /* Display: Atención al ciudadano */
-  $handler = $view->new_display('page', 'Atención al ciudadano', 'page_2');
+  /* Display: Sede principal */
+  $handler = $view->new_display('page', 'Sede principal', 'page_2');
   $handler->display->display_options['display_description'] = 'Este display muestra la información de contacto de la sede principal de la Entidad';
   $handler->display->display_options['defaults']['header'] = FALSE;
   /* Header: Global: Text area */
@@ -681,7 +684,7 @@ function govi_mecanismos_contacto_views_default_views() {
   $handler->display->display_options['fields']['field_atencion_enlace_mapa']['alter']['link_class'] = 'colorbox-load pure-button pure-button-primary';
   $handler->display->display_options['fields']['field_atencion_enlace_mapa']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_atencion_enlace_mapa']['click_sort_column'] = 'url';
-  $handler->display->display_options['path'] = 'transparencia/atencion-ciudadano/sede-principal';
+  $handler->display->display_options['path'] = 'transparencia/mecanismos-de-contacto/sede-principal';
   $translatables['informacion_entidad'] = array(
     t('Master'),
     t('Sede principal'),
@@ -699,17 +702,16 @@ function govi_mecanismos_contacto_views_default_views() {
     t('Correo electrónico notificaciones judiciales'),
     t('Horario de Atención'),
     t('Ciudad'),
-    t('Block'),
+    t('Pie de página'),
     t('Departamento'),
     t('Código postal'),
     t('Pie Información de la Entidad'),
-    t('Localización fisica, sucursales, regionales'),
+    t('Localización fisíca, sucursales o regionales'),
     t('Nombre'),
     t('Horario de atención'),
     t('Datos de contacto'),
     t('Teléfonos'),
     t('Linea gratuita'),
-    t('Atención al ciudadano'),
     t('Este display muestra la información de contacto de la sede principal de la Entidad'),
     t('A continuación se presentan los canales para la atención al ciudadano para recibir peticiones, quejas, reclamos, denuncias y solicitudes de información'),
     t('Ver Mapa'),

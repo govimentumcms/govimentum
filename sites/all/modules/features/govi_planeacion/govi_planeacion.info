@@ -9,7 +9,6 @@ dependencies[] = date
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = file
-dependencies[] = govi_control
 dependencies[] = link
 dependencies[] = list
 dependencies[] = menu

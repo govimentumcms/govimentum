@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_informacion_interes.features.inc
@@ -32,11 +33,11 @@ function govi_informacion_interes_views_api($module = NULL, $api = NULL) {
 function govi_informacion_interes_node_info() {
   $items = array(
     'convocatoria' => array(
-      'name' => t('Convocatoria'),
+      'name' => t('2.3 Convocatoria'),
       'base' => 'node_content',
-      'description' => t('Gestiona las convocatorias de la entidad o relacionadas, hace parte de la Información de Interés'),
+      'description' => t('Este tipo de contenido permite gestionar las convocatorias dirigidas a ciudadanos, usuarios y grupos de interés, especificando objetivos, requisitos y fechas de participación en dichos espacios'),
       'has_title' => '1',
-      'title_label' => t('Title'),
+      'title_label' => t('Nombre'),
       'help' => '',
     ),
     'documento' => array(

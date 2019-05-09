@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_encabezado_institucional.features.inc

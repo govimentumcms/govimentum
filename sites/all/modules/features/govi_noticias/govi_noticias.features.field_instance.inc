@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * govi_noticias.features.field_instance.inc
@@ -36,16 +37,23 @@ function govi_noticias_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
+    'label' => 'Cuerpo',
+    'required' => 1,
     'settings' => array(
-      'display_summary' => TRUE,
+      'display_summary' => 1,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'maxlength_js' => '',
+        'maxlength_js_enforce' => 0,
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_label_summary' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+        'maxlength_js_summary' => '',
+        'maxlength_js_truncate_html' => 0,
         'rows' => 20,
         'summary_rows' => 5,
       ),
@@ -120,7 +128,7 @@ function govi_noticias_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_copete',
-    'label' => 'Copete',
+    'label' => 'Texto lead',
     'required' => 1,
     'settings' => array(
       'display_summary' => 1,
@@ -169,20 +177,25 @@ function govi_noticias_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_enlace_noticia',
     'label' => 'Enlace',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
         'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
         'rel' => '',
-        'target' => 'default',
+        'target' => '_blank',
+        'title' => '',
       ),
       'display' => array(
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'rel_remove' => 'default',
       'title' => 'optional',
-      'title_label_use_field_label' => FALSE,
+      'title_allowed_values' => '',
+      'title_label_use_field_label' => 0,
       'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
@@ -190,6 +203,7 @@ function govi_noticias_field_default_field_instances() {
       'validate_url' => 1,
     ),
     'widget' => array(
+      'active' => 0,
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
@@ -305,7 +319,7 @@ function govi_noticias_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_multimedia_noticia',
-    'label' => 'Multimedia',
+    'label' => 'Imagenes destacadas',
     'required' => 1,
     'settings' => array(
       'alt_field' => 1,
@@ -353,7 +367,7 @@ function govi_noticias_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_noticia_tags',
-    'label' => 'Tags',
+    'label' => 'Palabras clave o etiquetas',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -418,11 +432,12 @@ function govi_noticias_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Archivos adjuntos');
   t('Body');
-  t('Copete');
+  t('Cuerpo');
   t('Enlace');
   t('Fecha de publicación');
-  t('Multimedia');
-  t('Tags');
+  t('Imagenes destacadas');
+  t('Palabras clave o etiquetas');
+  t('Texto lead');
   t('Utilice este campo para implementar el Lead o Copete del texto. Puede tener más información sobre el uso del copete en escritos periodísticos en el siguiente: http://www.abc.com.py/articulos/el-lead-y-el-cuerpo-de-la-noticia-1055422.html
 <strong>No puede superar los 400 caracteres </strong>');
   t('Utilice este campo para presentar múltiples imágenes o videos relacionados con la noticia');
